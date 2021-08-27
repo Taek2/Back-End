@@ -31,6 +31,30 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean login(MemberVO vo) {
+		try{
+			connect();
+			String sql="select * from memberA where userID = ? and userPW = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getUserID());
+	        pstmt.setString(2, vo.getUserPW());
+			ResultSet rs=pstmt.executeQuery();
+			if(rs.next()){
+				return true;
+			}
+			rs.close();
+		}
+		catch(Exception e){
+			System.out.println("select()에서 출력");
+			e.printStackTrace();
+		}
+		finally {
+			disconnect();
+		}
+		return false;
+	}
+	
 	public ArrayList<MemberVO> select() {
 		ArrayList<MemberVO> datas=new ArrayList();
 		try{
