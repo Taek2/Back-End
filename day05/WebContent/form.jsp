@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글쓰기</title>
+<title>글쓰기 페이지</title>
 </head>
 <body>
 <a href="control.jsp?action=list">메인으로 돌아가기</a>

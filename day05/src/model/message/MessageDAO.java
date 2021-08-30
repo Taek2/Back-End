@@ -76,6 +76,7 @@ public class MessageDAO {
 		boolean res = false;
 		PreparedStatement pstmt=null;
 		try{
+			// mnum == nvl, wdate == sysdate(현재 시간) 
 			String sql="INSERT INTO message (mnum, writer, title, content, wdate) VALUES((SELECT NVL(MAX(mnum),0) + 1 FROM message), ?, ?, ?, sysdate)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getWriter());
