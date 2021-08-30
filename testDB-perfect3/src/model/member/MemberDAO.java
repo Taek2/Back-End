@@ -99,7 +99,5 @@ public class MemberDAO {
 			disconnect();
 		}
 	}
-	public void login() {
-		
-	}
+	
 }
