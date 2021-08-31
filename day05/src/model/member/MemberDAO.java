@@ -1,4 +1,4 @@
-package model.message;
+package model.member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,27 +6,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.common.JDBC;
+import model.member.MemberVO;
 
-public class MessageDAO {
+public class MemberDAO {
 
 	// selectAll
-	public ArrayList<MessageVO> getDBList(){
+	public ArrayList<MemberVO> getDBList(){
 		Connection conn = JDBC.connect();
-		ArrayList<MessageVO> datas = new ArrayList();
+		ArrayList<MemberVO> datas = new ArrayList();
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "select * from message order by mnum desc"; // 최근 게시글 상단 배치
+			String sql = "select * from member order by memnum"; // 최근 게시글 상단 배치
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				MessageVO vo = new MessageVO();
-				vo.setContent(rs.getString("content"));
-				vo.setMnum(rs.getInt("mnum"));
-				vo.setTitle(rs.getString("title"));
-				vo.setWdate(rs.getDate("wdate"));
-				vo.setWriter(rs.getString("writer"));
-				vo.setMember(rs.getInt("member"));
+				MemberVO vo = new MemberVO();
+				vo.setMemnum(rs.getInt("memnum"));
+				vo.setMid(rs.getString("mid"));
+				vo.setMpw(rs.getString("mpw"));
 				datas.add(vo);
 			}
 			rs.close();
@@ -43,24 +41,23 @@ public class MessageDAO {
 	}
 
 	// selectOne
-	public MessageVO getDBData(MessageVO vo) {
+	public MemberVO login(MemberVO vo) {
 		Connection conn=JDBC.connect();
-		MessageVO data=null;
+		MemberVO data=null;
 		PreparedStatement pstmt=null;
 		try{
-			String sql="select * from message where mnum=?";
+			String sql="select * from member where mid=? and mpw=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, vo.getMnum());
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getMpw());
 			ResultSet rs=pstmt.executeQuery();
 			if(rs.next()){
-				data=new MessageVO();
-				data.setContent(rs.getString("content"));
-				data.setMnum(rs.getInt("mnum"));
-				data.setTitle(rs.getString("title"));
-				data.setWdate(rs.getDate("wdate"));
-				data.setWriter(rs.getString("writer"));
-				data.setMember(rs.getInt("member"));
+				data=new MemberVO();
+				data.setMemnum(rs.getInt("memnum"));
+				data.setMid(rs.getString("mid"));
+				data.setMpw(rs.getString("mpw"));
 			}
+			
 			rs.close();
 		}
 		catch(Exception e){
@@ -73,18 +70,16 @@ public class MessageDAO {
 		return data;
 	}
 	// INSERT
-	public boolean insertDB(MessageVO vo) {
+	public boolean insertDB(MemberVO vo) {
 		Connection conn=JDBC.connect();
 		boolean res = false;
 		PreparedStatement pstmt=null;
 		try{
 			// mnum == nvl, wdate == sysdate(현재 시간) 
-			String sql="INSERT INTO message (mnum, writer, title, content, member, wdate) VALUES((SELECT NVL(MAX(mnum),0) + 1 FROM message), ?, ?, ?, ?, sysdate)";
+			String sql="INSERT INTO member (memnum, mid, mpw) VALUES((SELECT NVL(MAX(memnum),0) + 1 FROM member), ?, ?)";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getWriter());
-			pstmt.setString(2, vo.getTitle());
-			pstmt.setString(3, vo.getContent());
-			pstmt.setInt(4,  vo.getMember());
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getMpw());
 			pstmt.executeUpdate();
 			res=true;
 		}
@@ -99,14 +94,14 @@ public class MessageDAO {
 		return res;
 	}
 
-	public boolean deleteDB(MessageVO vo) {
+	public boolean deleteDB(MemberVO vo) {
 		Connection conn=JDBC.connect();
 		boolean res=false;
 		PreparedStatement pstmt=null;
 		try{
-			String sql="delete from message where mnum=?";
+			String sql="delete from member where memnum=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, vo.getMnum());
+			pstmt.setInt(1, vo.getMemnum());
 			pstmt.executeUpdate();
 			res=true;
 		}
@@ -122,18 +117,16 @@ public class MessageDAO {
 	}
 
 	// update
-	public boolean updateDB(MessageVO vo) {
+	public boolean updateDB(MemberVO vo) {
 		Connection conn=JDBC.connect();
 		boolean res=false;
 		PreparedStatement pstmt=null;
 		try{
-			String sql="update message set writer=?, title=?, content=?, member=?, wdate=sysdate where mnum=?";
+			String sql="update member set mid=?, mpw=? where memnum=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getWriter());
-			pstmt.setString(2, vo.getTitle());
-			pstmt.setString(3, vo.getContent());
-			pstmt.setInt(4,  vo.getMember());
-			pstmt.setInt(5, vo.getMnum());
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getMpw());
+			pstmt.setInt(3, vo.getMemnum());
 			pstmt.executeUpdate();
 			res=true;
 		}

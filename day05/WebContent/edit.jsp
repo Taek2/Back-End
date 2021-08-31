@@ -16,7 +16,7 @@
 		}
 		else{
 			return;
-		}
+		} 
 	}
 </script>
 </head>
@@ -28,6 +28,7 @@
 	 mnum은 pk로 사용자에게 입력받지 않으므로 hidden으로 안보이게 지정해줌. -->
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="mnum" value="<%=data.getMnum()%>">
+<input type="hidden" name="member" value="<%=data.getMember()%>">
 <table border="1">
 	<tr>
 		<td>작성자</td>

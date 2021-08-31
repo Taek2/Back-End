@@ -8,6 +8,15 @@ public class MessageVO {
 	private String title;
 	private String content;
 	private Date wdate;
+	private int member;
+	
+	
+	public int getMember() {
+		return member;
+	}
+	public void setMember(int member) {
+		this.member = member;
+	}
 	public int getMnum() {
 		return mnum;
 	}
