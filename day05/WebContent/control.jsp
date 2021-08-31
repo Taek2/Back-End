@@ -29,7 +29,13 @@
 		}
 	}
 	else if(action.equals("delete")){
-		
+		if(messageDAO.deleteDB(messageVO)){
+			response.sendRedirect("control.jsp?action=list");
+			System.out.println("delete 정상적으로 작동!");
+		}
+		else{
+			throw new Exception("DB 삭제 오류 발생!");
+		}
 	}
 	else if(action.equals("update")){
 		if(messageDAO.updateDB(messageVO)){

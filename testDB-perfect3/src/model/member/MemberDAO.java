@@ -59,7 +59,7 @@ public class MemberDAO {
 		ArrayList<MemberVO> datas=new ArrayList();
 		try{
 			connect();
-			String sql="select * from memberA";
+			String sql="select * from memberA order by pk";
 			pstmt=conn.prepareStatement(sql);
 			ResultSet rs=pstmt.executeQuery();
 			while(rs.next()){

@@ -96,9 +96,28 @@ public class MessageDAO {
 		return res;
 	}
 
-	public void deleteDB() {
-
+	public boolean deleteDB(MessageVO vo) {
+		Connection conn=JDBC.connect();
+		boolean res=false;
+		PreparedStatement pstmt=null;
+		try{
+			String sql="delete from message where mnum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getMnum());
+			pstmt.executeUpdate();
+			res=true;
+		}
+		catch(Exception e){
+			System.out.println("deleteDB()에서 출력");
+			e.printStackTrace();
+			//res=false;
+		}
+		finally {
+			JDBC.disconnect(pstmt,conn);
+		}
+		return res;
 	}
+
 	// update
 	public boolean updateDB(MessageVO vo) {
 		Connection conn=JDBC.connect();
