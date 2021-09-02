@@ -9,6 +9,8 @@
 	String condition = request.getParameter("condition");
 	String content = request.getParameter("content");
 %>
+
+<!-- request로 날라온 애들을 객체에 맵핑 -->
 <jsp:useBean id="messageDAO" class="model.message.MessageDAO"/>
 <jsp:useBean id="memberDAO" class="model.member.MemberDAO"/>
 <jsp:useBean id="messageVO" class="model.message.MessageVO"/>
@@ -105,7 +107,9 @@
 	}
 	// 글 읽기
 	else if(action.equals("read")){
+		System.out.println(messageVO);
 		MessageVO data = messageDAO.getDBData(messageVO);
+		System.out.println(data);
 		request.setAttribute("data", data);
 		pageContext.forward("read.jsp");	
 	}

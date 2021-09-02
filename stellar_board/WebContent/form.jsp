@@ -47,7 +47,7 @@
 								<div class="spotlight">
 									<!-- Form -->
 									<section>
-										<h2>글 수정</h2>
+										<h2>글 쓰기</h2>
 										<form method="post" action="control.jsp">
 											<input type="hidden" name="action" value="insert">
 											<input type="hidden" name="member" value="<%=memnum%>">
