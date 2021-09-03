@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<mytag:print color="lightgreen" fontSize="50px">태그 바디로 출력이 된다고!</mytag:print>
+<mytag:print color="lightgreen" fontSize="50px">태그 바디로 출력이 된다고!!</mytag:print>
 </body>
 </html>
