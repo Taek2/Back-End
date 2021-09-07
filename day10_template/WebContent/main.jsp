@@ -52,8 +52,7 @@ https://templatemo.com/tm-553-xtra-blog
                 </ul>
             </nav>
             <div class="tm-mb-65">
-            	
-            	<% if(session.getAttribute("memnum") == null) {%>
+            	<c:if test="${memnum == null}">
                 <form method="post" action="control.jsp">
 					<input type="hidden" name="action" value="login">
 					<input class="form-login" type="text" name="mid" id="demo-name" value="" placeholder="ID를 입력" />	
@@ -64,18 +63,15 @@ https://templatemo.com/tm-553-xtra-blog
 					<br>		
 				</form>
 				<a href="join.jsp"><button class="tm-btn tm-btn-primary tm-btn-small">회원가입</button></a>
-				<%
-					}
-            	else{
-				%>
+				</c:if>
+				
+				<c:if test="${memnum!=null}">
 				 <p class="tm-mb-80 pr-5 text-white">
 				 	${id}님 반갑습니다!
 				 	<a href="logout.jsp"><button class="tm-btn tm-btn-primary tm-btn-small">로그아웃</button></a>
 				 	<a href="mypage.jsp"><button class="tm-btn tm-btn-primary tm-btn-small">마이페이지</button></a>
-			
 				 </p>
-				 
-				<%} %>
+				 </c:if>
             </div>
             <p class="tm-mb-80 pr-5 text-white">
                 Xtra Blog is a multi-purpose HTML template from TemplateMo website. Left side is a sticky menu bar. Right side content will scroll up and down.
@@ -100,32 +96,31 @@ https://templatemo.com/tm-553-xtra-blog
                 
 				<c:forEach var="v" items="${datas}" varStatus="i">
                 <article class="col-12 col-md-6 tm-post">
-                    <hr class="tm-hr-primary">
-                    ${v.getMnum()}
-                    <a href="control.jsp?action=post&mnum=${v.getMnum()}" class="effect-lily tm-post-link tm-pt-60">
+                    <hr class="tm-hr-primary">   
+                    <a href="control.jsp?action=post&mnum=${v.mnum}" class="effect-lily tm-post-link tm-pt-60">
                         <div class="tm-post-link-inner">
                             <img src="img/img-0${i.count}.jpg" alt="Image" class="img-fluid">                            
                         </div>
                         <span class="position-absolute tm-new-badge">New</span>
-                        <h2 class="tm-pt-30 tm-color-primary tm-post-title">${v.getTitle()}</h2>
+                        <h2 class="tm-pt-30 tm-color-primary tm-post-title">${v.title}</h2>
                     </a>                    
                     <p class="tm-pt-30">
-                        ${v.getContent()}
+                        ${v.content}
                    
                     </p>
                     <div class="d-flex justify-content-between tm-pt-45">
                         <span class="tm-color-primary">Travel . Events</span>
                         <span class="tm-color-primary">
-                        	${v.getWdate()}
+                        	${v.wdate}
                        </span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span>36 comments</span>
-                        <span>by ${v.getWriter()}</span>
+                        <span><a href="control.jsp?action=edit&mnum=${v.mnum}">by ${v.writer}</a></span>
                     </div>
                 </article>
-                </c:forEach>          
+                </c:forEach>  
                 
             </div>
             <div class="row tm-row tm-mt-100 tm-mb-75">
@@ -151,6 +146,9 @@ https://templatemo.com/tm-553-xtra-blog
                             </li>
                         </ul>
                     </nav>
+                </div> 
+                <div>       
+                <a href=form.jsp><button>글 작성</button></a>
                 </div>                
             </div>            
             <footer class="row tm-row">

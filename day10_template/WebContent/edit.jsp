@@ -1,28 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, model.message.*"%>
-<jsp:useBean id="datas" class="java.util.ArrayList" scope="request" />
+	pageEncoding="UTF-8"%>
+<jsp:useBean id="data" class="model.message.MessageVO" scope="request" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Xtra Blog</title>
-	<link rel="stylesheet" href="fontawesome/css/all.min.css"> <!-- https://fontawesome.com/ -->
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/templatemo-xtra-blog.css" rel="stylesheet">
-<!--
-    
-TemplateMo 553 Xtra Blog
-
-https://templatemo.com/tm-553-xtra-blog
-
--->
+<script type="text/javascript">
+			// 삭제 버튼 onClick 옵션 함수 정의
+			function del(){
+				result=confirm("정말로 삭제하시겠습니까?");
+				if(result==true){
+					document.form1.action.value="delete";
+					document.form1.submit();
+				}
+				else{
+					return;
+				} 
+			}
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입</title>
+<link rel="stylesheet" href="fontawesome/css/all.min.css">
+<!-- https://fontawesome.com/ -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+	rel="stylesheet">
+<!-- https://fonts.google.com/ -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/templatemo-xtra-blog.css" rel="stylesheet">
 </head>
 <body>
-	<header class="tm-header" id="tm-header">
+<header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -79,37 +88,37 @@ https://templatemo.com/tm-553-xtra-blog
     </header>
     <div class="container-fluid">
         <main class="tm-main">
-        
-            <form method="post" action="control.jsp" class="mb-5 tm-comment-form">
-			    <input type="hidden" name="action" value="mypage">
-			    <input type="hidden" name="memnum" value="${memnum}">
-			    <h2 class="tm-color-primary tm-post-title mb-4">회원정보수정</h2>
-			    <div class="mb-4">
-			        <input class="form-control" name="mid" type="text" value="${id}" readonly>
-			    </div>
-			    <div class="mb-4">
-			        <input class="form-control" name="mpw" type="password" placeholder="변경할 비밀번호">
-			    </div>
-			    <div class="mb-4">
-			        <textarea class="form-control" name="message" rows="6"></textarea>
-			    </div>
-			    <div class="text-right">
-			        <button class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
-			    </div>                                
-			</form>         
-			
-            <footer class="row tm-row">
-                <hr class="col-12">
-                <div class="col-md-6 col-12 tm-color-gray">
-                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>
-                </div>
-                <div class="col-md-6 col-12 tm-color-gray tm-copyright">
-                    Copyright 2020 Xtra Blog Company Co. Ltd.
-                </div>
-            </footer>
-        </main>
-    </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/templatemo-script.js"></script>
+			<a class="button" href="control.jsp?action=main">메인으로 돌아가기</a>
+			<br>
+			<br>
+			<form method="post" name="form1" action="control.jsp" class="mb-5 tm-comment-form">
+				<input type="hidden" name="action" value="update"> <input
+					type="hidden" name="mnum" value="${data.mnum}"> <input
+					type="hidden" name="member" value="${data.member}">
+				<h2 class="tm-color-primary tm-post-title mb-4">글 수정</h2>
+				<div class="mb-4">
+					<input class="form-control" name="writer" type="text"
+						value="${data.writer}" readonly>
+				</div>
+				<div class="mb-4">
+					<input class="form-control" name="date" type="date"
+						value="${data.wdate}">
+				</div>
+				<div class="mb-4">
+					<input class="form-control" type="text" name="title"
+						value="${data.title}">
+				</div>
+				<div class="mb-4">
+					<textarea class="form-control" name="content" rows="6">${data.content}</textarea>
+				</div>
+				<div class="text-right">
+					<input type="submit" value="수정하기"
+						class="tm-btn tm-btn-primary tm-btn-small" />
+					<input type="button" value="글 삭제하기" onClick="del()"
+						class="tm-btn tm-btn-primary tm-btn-small">
+				</div>
+			</form>
+		</main>
+	</div>
 </body>
 </html>

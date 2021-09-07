@@ -33,7 +33,7 @@
 	else if(action.equals("insert")){
 		if(messageDAO.insertDB(messageVO)){
 			// 같은 페이지의 다른 곳으로 이동할 때는 주로 redirect 방식을 이용함 -> spring에서 자세히
-			response.sendRedirect("control.jsp?action=list");
+			response.sendRedirect("control.jsp?action=main");
 		}
 		else{
 			// 예외를 발생시켜 에러페이지로 이동
@@ -42,7 +42,7 @@
 	}
 	else if(action.equals("delete")){
 		if(messageDAO.deleteDB(messageVO)){
-			response.sendRedirect("control.jsp?action=list");
+			response.sendRedirect("control.jsp?action=main");
 			System.out.println("delete 정상적으로 작동!");
 		}
 		else{
@@ -52,7 +52,7 @@
 	else if(action.equals("update")){
 		if(messageDAO.updateDB(messageVO)){
 			// 같은 페이지의 다른 곳으로 이동할 때는 주로 redirect 방식을 이용함 -> spring에서 자세히
-			response.sendRedirect("control.jsp?action=list");
+			response.sendRedirect("control.jsp?action=main");
 		}
 		else{
 			// 예외를 발생시켜 에러페이지로 이동

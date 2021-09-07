@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%
 	request.setCharacterEncoding("UTF-8");
 %> 
@@ -53,30 +54,25 @@ https://templatemo.com/tm-553-xtra-blog
                 </ul>
             </nav>
            <div class="tm-mb-65">
-            	
-            	<% if(session.getAttribute("memnum") == null) {%>
+            	<c:if test="${memnum == null}">
                 <form method="post" action="control.jsp">
 					<input type="hidden" name="action" value="login">
 					<input class="form-login" type="text" name="mid" id="demo-name" value="" placeholder="ID를 입력" />	
-					<input class="form-login" type="password" name="mpw" id="demo-email" value="" placeholder="PW를 입력" />
-						
-						
+					<input class="form-login" type="password" name="mpw" id="demo-email" value="" placeholder="PW를 입력" />	
 					<input class= "tm-btn tm-btn-primary tm-btn-small" type="submit" value="로그인" />
 					<br>		
 				</form>
 				<a href="join.jsp"><button class="tm-btn tm-btn-primary tm-btn-small">회원가입</button></a>
-				<%
-					}
-            	else{
-				%>
+				</c:if>
+				
+				 <c:if test="${memnum!=null}">
 				 <p class="tm-mb-80 pr-5 text-white">
-				 	<%= session.getAttribute("id")%>님 반갑습니다!
+				 	${id}님 반갑습니다!
 				 	<a href="logout.jsp"><button class="tm-btn tm-btn-primary tm-btn-small">로그아웃</button></a>
 				 	<a href="mypage.jsp"><button class="tm-btn tm-btn-primary tm-btn-small">마이페이지</button></a>
-			
 				 </p>
-				 
-				 <%} %>
+				 </c:if>
+				
             </div>
             <p class="tm-mb-80 pr-5 text-white">
                 Xtra Blog is a multi-purpose HTML template from TemplateMo website. Left side is a sticky menu bar. Right side content will scroll up and down.
@@ -111,10 +107,10 @@ https://templatemo.com/tm-553-xtra-blog
                 <div class="col-lg-8 tm-post-col">
                     <div class="tm-post-full">                    
                         <div class="mb-4">
-                            <h2 class="pt-2 tm-color-primary tm-post-title">${data.getTitle()}</h2>
-                            <p class="tm-mb-40">${data.getWdate()} posted by ${data.getWriter()}</p>
+                            <h2 class="pt-2 tm-color-primary tm-post-title">${data.title}</h2>
+                            <p class="tm-mb-40">${data.wdate} posted by ${data.writer}</p>
                             <p>
-                           		${data.getContent()}     
+                           		${data.content}     
                             </p>
                             
                             <span class="d-block text-right tm-color-primary">Creative . Design . Business</span>
