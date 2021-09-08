@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource-ref>
+	<res-auth>Container</res-auth>
+	<res-type>javax.sql.DataSource</res-type>
+	<res-ref-name>jdbc/orcl</res-ref-name>
+</resource-ref>
