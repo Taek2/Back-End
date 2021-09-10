@@ -27,6 +27,7 @@ public class MessageDAO {
 				vo.setWdate(rs.getDate("wdate"));
 				vo.setWriter(rs.getString("writer"));
 				vo.setMember(rs.getInt("member"));
+				vo.setPath(rs.getString("path"));
 				datas.add(vo);
 			}
 			rs.close();
@@ -60,6 +61,7 @@ public class MessageDAO {
 				data.setWdate(rs.getDate("wdate"));
 				data.setWriter(rs.getString("writer"));
 				data.setMember(rs.getInt("member"));
+				data.setPath(rs.getString("path"));
 			}
 			rs.close();
 		}
@@ -79,12 +81,13 @@ public class MessageDAO {
 		PreparedStatement pstmt=null;
 		try{
 			// mnum == nvl, wdate == sysdate(현재 시간) 
-			String sql="INSERT INTO message (mnum, writer, title, content, member, wdate) VALUES((SELECT NVL(MAX(mnum),0) + 1 FROM message), ?, ?, ?, ?, sysdate)";
+			String sql="INSERT INTO message (mnum, writer, title, content, member, path,wdate) VALUES((SELECT NVL(MAX(mnum),0) + 1 FROM message), ?, ?, ?, ?, ?, sysdate)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getWriter());
 			pstmt.setString(2, vo.getTitle());
 			pstmt.setString(3, vo.getContent());
-			pstmt.setInt(4,  vo.getMember());
+			pstmt.setInt(4, vo.getMember());
+			pstmt.setString(5, vo.getPath());
 			pstmt.executeUpdate();
 			res=true;
 		}
@@ -127,13 +130,14 @@ public class MessageDAO {
 		boolean res=false;
 		PreparedStatement pstmt=null;
 		try{
-			String sql="update message set writer=?, title=?, content=?, member=?, wdate=sysdate where mnum=?";
+			String sql="update message set writer=?, title=?, content=?, member=? path=?, wdate=sysdate where mnum=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getWriter());
 			pstmt.setString(2, vo.getTitle());
 			pstmt.setString(3, vo.getContent());
 			pstmt.setInt(4,  vo.getMember());
 			pstmt.setInt(5, vo.getMnum());
+			pstmt.setString(6, vo.getPath());
 			pstmt.executeUpdate();
 			res=true;
 		}

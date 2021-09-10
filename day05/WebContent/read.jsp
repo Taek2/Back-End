@@ -44,7 +44,7 @@ tr:last-child{
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><%=data.getContent() %></td>
+		<td><img src="<%=data.getPath()%>" width=512 height=384></img><br><br><%=data.getContent() %></td>
 	</tr>
 </table>
 <button type="button" onClick="back()">뒤로 가기</button>

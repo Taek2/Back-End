@@ -8,9 +8,16 @@ public class MessageVO {
 	private String title;
 	private String content;
 	private Date wdate;
+	private String path;
 	private int member;
 	
 	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public int getMember() {
 		return member;
 	}

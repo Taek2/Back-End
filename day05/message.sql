@@ -5,6 +5,7 @@ create table message(
 	content varchar(200) not null,
 	wdate date default sysdate,
 	member int,
+	path varchar(1000),
 	foreign key (member) references member(memnum) on delete cascade
 );
 
@@ -13,6 +14,26 @@ create table member(
 	mid varchar(30),
 	mpw varchar(30)
 );
+
+CREATE TABLE BBS(
+	boardID int,
+	bbsID int,
+	bbsTitle varchar(1000),
+	userID varchar(300),
+	bbsDate varchar(300),
+	bbsContent varchar(3000),
+	map varchar(3000),
+	bbsAvailable int
+);
+
+
+
+CREATE TABLE BBS_FILE(
+FILENAME VARCHAR(20),
+FILEREALNAME VARCHAR(20),
+BBSID NUMBER);
+
+select * from BBS_FILE;
 
 drop table message;
 drop table member;
