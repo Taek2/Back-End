@@ -60,7 +60,7 @@ tr:last-child{
 		out.println("<form method='post' action='control.jsp?action=addrreply'>");
 		out.println("<input type='hidden' name='rrnum' value='" + rs.getR().getRnum() + "'>");
 		out.println("<input type='hidden' name='mnum' value='" + data.getM().getMnum()+ "'>");
-		out.println("<input type='text' name='rrwriter' placeholder='이름'>");
+		out.println("<input type='text' name='rrwriter' value='" + session.getAttribute("userID") + "' readonly>");
 		out.println("<input type='text' name='rrcontent' placeholder='답글'>");
 		out.println("<input type='submit' value='답글 등록'>");
 		out.println("</form>");
@@ -79,7 +79,7 @@ tr:last-child{
 	<input type="hidden" name="action" value="addreply">
 	<input type="hidden" name="rmember" value="${data.m.mnum}">
 	<input type="hidden" name="mnum" value="${data.m.mnum}">
-	<input type="text" placeholder="이름 입력" name="rwriter">
+	<input type="text" name="rwriter" value="${userID}" readonly>
 	<input type="text" placeholder="댓글 입력" name="rcontent">
 	<input type="submit" value="댓글 등록">
 </form>

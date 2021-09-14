@@ -3,7 +3,7 @@
 <jsp:useBean id="datas" class="java.util.ArrayList" scope="request" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
- 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +42,7 @@
 	</c:forEach>
 </table>
 
-<a href="control.jsp?action=list&mcnt=${mcnt+1}&memnum=${memnum}">더보기&gt;&gt;</a>
+<a href="control.jsp?action=list&mcnt=${mcnt+1}&selUser=${selUser}">더보기&gt;&gt;</a>
 
 <br><br>
 ${userID}님, 환영합니다!<br>
