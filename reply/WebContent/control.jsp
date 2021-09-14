@@ -21,12 +21,28 @@
 <%
 	// 컨트롤러를 호출했을 때의 action 파라미터에 따라 작업을 분할
 	String action = request.getParameter("action");
-	System.out.println(action); // log
-	System.out.println(session.getAttribute("memnum"));
+	String url="control.jsp?action=list";
+	//System.out.println(action); // log
+	//System.out.println(session.getAttribute("memnum"));
+	String mcntt=request.getParameter("mcnt");
+	int mcnt=2;
+	if(mcntt!=null){
+		mcnt=Integer.parseInt(mcntt);
+	}
+	url= url+ "&mcnt="+mcnt;
+	String selUser=request.getParameter("selUser");
+	if(selUser!=null){
+		url= url+ "&userID="+selUser;
+	}
 	
 	if(action.equals("list")){
-		ArrayList<MessageVO> datas = messageDAO.getDBList();
+		ArrayList<MessageVO> datas = messageDAO.getDBList(selUser, mcnt);
+		System.out.println(datas);
+		ArrayList<MemberVO> newUsers=memberDAO.getDBList();
 		request.setAttribute("datas", datas);
+		request.setAttribute("newUsers", newUsers);
+		request.setAttribute("selUser", selUser);
+		request.setAttribute("mcnt", mcnt);
 		pageContext.forward("list.jsp");
 	}
 	else if(action.equals("insert")){
@@ -144,7 +160,7 @@
 		else{
 			System.out.println("실패");
 		}
-		response.sendRedirect("control.jsp?action=list");
+		pageContext.forward("control.jsp?action=read");
 	}
 	else if(action.equals("addrreply")){
 			
@@ -154,7 +170,7 @@
 			else{
 				System.out.println("실패");
 			}
-			response.sendRedirect("control.jsp?action=list");
+			pageContext.forward("control.jsp?action=read");
 		}
 	else{
 		out.println("오류 발생!");

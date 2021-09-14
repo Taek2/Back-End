@@ -8,6 +8,7 @@ create table message(
 	path varchar(1000),
 	foreign key (member) references member(memnum) on delete cascade
 );
+select * from ( select * from message order by wdate desc ) where ROWNUM <= 3;
 
 CREATE TABLE reply(
 	rnum int primary key,

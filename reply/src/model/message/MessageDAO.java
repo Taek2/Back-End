@@ -13,14 +13,25 @@ import model.reply.ReplyVO;
 public class MessageDAO {
 
 	// selectAll
-	public ArrayList<MessageVO> getDBList(){
+	public ArrayList<MessageVO> getDBList(String uid, int cnt){
 		Connection conn = DBCP.connect();
 		ArrayList<MessageVO> datas = new ArrayList();
 		PreparedStatement pstmt = null;
+		String sql;
 
 		try {
-			String sql = "select * from message order by mnum desc"; // 최근 게시글 상단 배치
-			pstmt = conn.prepareStatement(sql);
+			if((uid == null) || (uid.equals(""))) {
+				sql = "select * from ( select * from message order by wdate desc ) where ROWNUM <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, cnt);
+			}
+			// 특정 회원
+			else{
+				sql = "select * from ( select * from message where member=? order by wdate desc )where ROWNUM <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,uid);
+				pstmt.setInt(2,cnt);
+			}
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				MessageVO vo = new MessageVO();

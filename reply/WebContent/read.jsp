@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  import="java.util.*, model.message.*, model.member.*, model.reply.*"%>
 <jsp:useBean id="data" class="model.message.MsgSet" scope="request" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,19 +33,19 @@ tr:last-child{
 <table border="1">
 	<tr>
 		<td>제목</td>
-		<td><%=data.getM().getTitle()%></td>
+		<td>${data.m.title}</td>
 	</tr>
 	<tr>
 		<td>작성자</td>
-		<td><%=data.getM().getWriter() %></td>
+		<td>${data.m.writer}</td>
 	</tr>
 	<tr>
 		<td>작성 시간</td>
-		<td><%=data.getM().getWdate() %></td>
+		<td>${data.m.wdate}</td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><img src="<%=data.getM().getPath()%>" width=512 height=384></img><br><br><%=data.getM().getContent() %></td>
+		<td><img src="${data.m.path}" width=512 height=384></img><br><br>${data.m.content}</td>
 	</tr>
 </table>
 
@@ -58,6 +59,7 @@ tr:last-child{
 		
 		out.println("<form method='post' action='control.jsp?action=addrreply'>");
 		out.println("<input type='hidden' name='rrnum' value='" + rs.getR().getRnum() + "'>");
+		out.println("<input type='hidden' name='mnum' value='" + data.getM().getMnum()+ "'>");
 		out.println("<input type='text' name='rrwriter' placeholder='이름'>");
 		out.println("<input type='text' name='rrcontent' placeholder='답글'>");
 		out.println("<input type='submit' value='답글 등록'>");
@@ -75,7 +77,8 @@ tr:last-child{
 <br><br>
 <form method="post" action="control.jsp">
 	<input type="hidden" name="action" value="addreply">
-	<input type="hidden" name="rmember" value="<%=data.getM().getMnum()%>">
+	<input type="hidden" name="rmember" value="${data.m.mnum}">
+	<input type="hidden" name="mnum" value="${data.m.mnum}">
 	<input type="text" placeholder="이름 입력" name="rwriter">
 	<input type="text" placeholder="댓글 입력" name="rcontent">
 	<input type="submit" value="댓글 등록">
