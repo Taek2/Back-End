@@ -15,18 +15,28 @@ CREATE TABLE reply(
 	rdate date default sysdate,
 	rcontent varchar(200) not null,
 	rwriter varchar(30) not null,
-	rmember int
+	rmember int,
+	rmnum int,
+	foreign key (rmnum) references message(mnum) on delete cascade
 )
 select * from reply;
+drop table reply;
 
 delete from reply where rnum=3;
 CREATE TABLE rreply(
+	rrpk int primary key,
 	rrnum int,
 	rrdate date default sysdate,
 	rrcontent varchar(200) not null,
-	rrwriter varchar(30) not null
+	rrwriter varchar(30) not null,
+	rrmember int,
+	foreign key (rrnum) references reply(rnum) on delete cascade
 )
+drop table rreply;
+delete from rreply;
+delete from reply;
 
+select * from rreply where rrnum=3 order by rrdate;
 
 create table member(
 	memnum int primary key,

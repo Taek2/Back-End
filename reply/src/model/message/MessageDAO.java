@@ -80,7 +80,7 @@ public class MessageDAO {
 				data.setMember(rs.getInt("member"));
 				data.setPath(rs.getString("path"));
 				
-				String rsql = "select * from reply where rmember=?";
+				String rsql = "select * from reply where rmnum=? order by rdate";
 				pstmt = conn.prepareStatement(rsql);
 				pstmt.setInt(1, rs.getInt("mnum"));
 				ResultSet rrs = pstmt.executeQuery();
@@ -94,8 +94,9 @@ public class MessageDAO {
 					r.setRwriter(rrs.getString("rwriter"));
 					r.setRcontent(rrs.getString("rcontent"));
 					r.setRmember(rrs.getInt("rmember"));
+					r.setRmnum(rrs.getInt("rmnum"));
 					
-					String rrsql = "select * from rreply where rrnum=?";
+					String rrsql = "select * from rreply where rrnum=? order by rrdate";
 					pstmt = conn.prepareStatement(rrsql);
 					pstmt.setInt(1, rrs.getInt("rnum"));
 					ResultSet rrrs = pstmt.executeQuery();
@@ -106,6 +107,8 @@ public class MessageDAO {
 						rr.setRrdate(rrrs.getDate("rrdate"));
 						rr.setRrwriter(rrrs.getString("rrwriter"));
 						rr.setRrcontent(rrrs.getString("rrcontent"));
+						rr.setRrpk(rrrs.getInt("rrpk"));
+						rr.setRrmember(rrrs.getInt("rrmember"));
 						rrlist.add(rr);
 					}
 					rset.setR(r);
@@ -187,14 +190,15 @@ public class MessageDAO {
 		boolean res=false;
 		PreparedStatement pstmt=null;
 		try{
-			String sql="update message set writer=?, title=?, content=?, member=? path=?, wdate=sysdate where mnum=?";
+			String sql="update message set writer=?, title=?, content=?, member=?, path=?, wdate=sysdate where mnum=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getWriter());
 			pstmt.setString(2, vo.getTitle());
 			pstmt.setString(3, vo.getContent());
 			pstmt.setInt(4,  vo.getMember());
-			pstmt.setInt(5, vo.getMnum());
-			pstmt.setString(6, vo.getPath());
+			pstmt.setString(5, vo.getPath());
+			pstmt.setInt(6, vo.getMnum());
+			
 			pstmt.executeUpdate();
 			res=true;
 		}

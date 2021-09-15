@@ -5,14 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>글쓰기 페이지</title>
-<% int memnum = (int)session.getAttribute("memnum"); %>
 
 </head>
 <body>
 <a href="control.jsp?action=list">메인으로 돌아가기</a>
 <form action="control_write.jsp" method="post" name="form1" enctype="multipart/form-data">
 
-<input type="hidden" name="member" value="<%=memnum%>">
+<input type="hidden" name="member" value="${memnum}">
 <table border="1">
 	<tr>
 		<td>작성자</td>

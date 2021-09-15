@@ -95,6 +95,7 @@
 		}
 	}
 	else if(action.equals("update")){
+		System.out.println("업뎃: " + messageVO);
 		if(messageDAO.updateDB(messageVO)){
 			// 같은 페이지의 다른 곳으로 이동할 때는 주로 redirect 방식을 이용함 -> spring에서 자세히
 			response.sendRedirect("control.jsp?action=list");
@@ -104,15 +105,15 @@
 			throw new Exception("DB 변경 오류 발생!");
 		}
 	}
-	/*
+	
 	else if(action.equals("edit")){
 		
 		int memnum = (int)session.getAttribute("memnum");
 		MsgSet data = messageDAO.getDBData(messageVO);
-		System.out.println("data.getMemnum() = " + data.getMember());
+		System.out.println("data.getMemnum() = " + data.getM().getMember());
 		System.out.println("memnum = " + memnum);
 		
-		if(data.getMember() == memnum){
+		if(data.getM().getMember() == memnum){
 			request.setAttribute("data", data);
 			pageContext.forward("edit.jsp");	
 		}
@@ -120,7 +121,7 @@
 			out.println("<script>alert('접근 권한이 없습니다!');history.go(-1);</script>");
 		}
 	}
-	*/
+	
 	// 로그인 기능
 	else if(action.equals("login")){
 		//MemberVO vo = memberDAO.login(memberVO);
@@ -139,7 +140,8 @@
 	else if(action.equals("join")){
 		if(memberDAO.insertDB(memberVO)){
 			// 같은 페이지의 다른 곳으로 이동할 때는 주로 redirect 방식을 이용함 -> spring에서 자세히
-			pageContext.forward("login.jsp");
+			out.println("<script>alert('회원가입 완료!');</script>");
+			out.println("<script>window.close();</script>");
 		}
 		else{
 			// 예외를 발생시켜 에러페이지로 이동
@@ -169,6 +171,26 @@
 			}
 			else{
 				System.out.println("실패");
+			}
+			pageContext.forward("control.jsp?action=read");
+		}
+	else if(action.equals("rreplyDelete")){
+		
+		if(rreplyDAO.delete(rreplyVO)){
+			System.out.println("삭제 성공");
+		}
+		else{
+			System.out.println("삭제 실패");
+		}
+		pageContext.forward("control.jsp?action=read");
+	}
+	else if(action.equals("replyDelete")){
+			
+			if(replyDAO.delete(replyVO)){
+				System.out.println("삭제 성공");
+			}
+			else{
+				System.out.println("삭제 실패");
 			}
 			pageContext.forward("control.jsp?action=read");
 		}

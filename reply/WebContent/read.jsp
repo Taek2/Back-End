@@ -3,6 +3,9 @@
 <jsp:useBean id="data" class="model.message.MsgSet" scope="request" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
+<% 
+	request.setAttribute("message", data.getM());
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -33,59 +36,69 @@ tr:last-child{
 <table border="1">
 	<tr>
 		<td>제목</td>
-		<td>${data.m.title}</td>
+		<td>${message.title}</td>
 	</tr>
 	<tr>
 		<td>작성자</td>
-		<td>${data.m.writer}</td>
+		<td>${message.writer}</td>
 	</tr>
 	<tr>
 		<td>작성 시간</td>
-		<td>${data.m.wdate}</td>
+		<td>${message.wdate}</td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><img src="${data.m.path}" width=512 height=384></img><br><br>${data.m.content}</td>
+		<td><img src="${message.path}" width=512 height=384></img><br><br>${message.content}</td>
 	</tr>
 </table>
 
-<% 
-	System.out.println(data.getRlist());
-	for(ReplySet rs : data.getRlist()){
-		out.println("====================================<br>");
-		out.println("<input type='text' value='" + rs.getR().getRwriter() + "님의 댓글'>");
-		out.println("<input type='text' value='" + rs.getR().getRcontent() + "'>");
-		out.println(rs.getR().getRdate());
+<c:forEach var="rs" items="${data.rlist}">
+	<br>
+	<input type="text" value="${rs.r.rwriter}님의 댓글">
+	<input type="text" value="${rs.r.rcontent}">
+	
+	<c:if test="${rs.r.rmember == memnum}">
+		<a href="control.jsp?action=replyDelete&rnum=${rs.r.rnum}&mnum=${message.mnum}"><input type="button" value="댓글 삭제"></a>
+	</c:if>
+	${rs.r.rdate}
+	<br>
+	
+	<c:forEach var="rrs" items="${rs.rrlist}">
+		┗><input type="text" value="${rrs.rrwriter}님의 답글">
+		<input type="text" value="${rrs.rrcontent}">
 		
-		out.println("<form method='post' action='control.jsp?action=addrreply'>");
-		out.println("<input type='hidden' name='rrnum' value='" + rs.getR().getRnum() + "'>");
-		out.println("<input type='hidden' name='mnum' value='" + data.getM().getMnum()+ "'>");
-		out.println("<input type='text' name='rrwriter' value='" + session.getAttribute("userID") + "' readonly>");
-		out.println("<input type='text' name='rrcontent' placeholder='답글'>");
-		out.println("<input type='submit' value='답글 등록'>");
-		out.println("</form>");
-		out.println("====================================<br>");
+		<c:if test="${rrs.rrmember == memnum}">
+			<a href="control.jsp?action=rreplyDelete&rrpk=${rrs.rrpk}&mnum=${message.mnum}"><input type="button" value="답글 삭제"></a>
+		</c:if>
+		<br>
+	</c:forEach>
+	
+	<form method="post" action="control.jsp?action=addrreply">
+		<input type="hidden" name="rrnum" value="${rs.r.rnum}">
+		<input type="hidden" name="mnum" value="${message.mnum}">
+		<input type="hidden" name="rrmember" value="${memnum}">
 		
-		for(RReplyVO rrs : rs.getRrlist()){
-			out.println("<input type='text' value='" + rrs.getRrwriter() + "님의 답글'>");
-			out.println("<input type='text' value='" + rrs.getRrcontent() + "'>");
-			out.println("<br>");
-		}
-	}
-%>
+		┗><input type="text" name="rrwriter" value="${userID}" readonly>
+		<input type="text" name="rrcontent" placeholder="답글">
+		<input type="submit" value="답글 등록">
+	</form>
+	<br>
+</c:forEach>
 
+<!-- 댓글 입력 -->
 <br><br>
 <form method="post" action="control.jsp">
 	<input type="hidden" name="action" value="addreply">
-	<input type="hidden" name="rmember" value="${data.m.mnum}">
-	<input type="hidden" name="mnum" value="${data.m.mnum}">
+	<input type="hidden" name="rmember" value="${memnum}">
+	<input type="hidden" name="rmnum" value="${message.mnum}">
+	<input type="hidden" name="mnum" value="${message.mnum}">
 	<input type="text" name="rwriter" value="${userID}" readonly>
 	<input type="text" placeholder="댓글 입력" name="rcontent">
 	<input type="submit" value="댓글 등록">
 </form>
 
+<a href="control.jsp?action=list"><input type="button" value="뒤로가기"></a>
 
-<button type="button" onClick="back()">뒤로 가기</button>
 
 </body>
 </html>

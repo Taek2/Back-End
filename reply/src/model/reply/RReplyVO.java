@@ -3,10 +3,13 @@ package model.reply;
 import java.sql.Date;
 
 public class RReplyVO {
+	private int rrpk;
 	private int rrnum;
 	private Date rrdate;
 	private String rrcontent;
 	private String rrwriter;
+	private int rrmember;
+	
 	public int getRrnum() {
 		return rrnum;
 	}
@@ -30,6 +33,19 @@ public class RReplyVO {
 	}
 	public void setRrwriter(String rrwriter) {
 		this.rrwriter = rrwriter;
+	}
+	
+	public int getRrpk() {
+		return rrpk;
+	}
+	public void setRrpk(int rrpk) {
+		this.rrpk = rrpk;
+	}
+	public int getRrmember() {
+		return rrmember;
+	}
+	public void setRrmember(int rrmember) {
+		this.rrmember = rrmember;
 	}
 	@Override
 	public String toString() {

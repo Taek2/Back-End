@@ -56,8 +56,10 @@ public class MessageVO {
 	}
 	@Override
 	public String toString() {
-		return "MessageVO [mnum=" + mnum + ", writer=" + writer + ", title=" + title + ", content=" + content + "]";
+		return "MessageVO [mnum=" + mnum + ", writer=" + writer + ", title=" + title + ", content=" + content
+				+ ", wdate=" + wdate + ", path=" + path + ", member=" + member + "]";
 	}
+	
 	
 	
 }

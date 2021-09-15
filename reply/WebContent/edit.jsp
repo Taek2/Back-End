@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<jsp:useBean id="data" class="model.message.MessageVO" scope="request" />
+    pageEncoding="UTF-8" import="model.message.MessageVO"%>
+<jsp:useBean id="data" class="model.message.MsgSet" scope="request" />
+<% MessageVO message = data.getM(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,25 +28,25 @@
 <!-- 사용자에겐 안보이게 hidden으로 숨겨놓음, action 파라미터 값에 update를 주기 위함.
 	 mnum은 pk로 사용자에게 입력받지 않으므로 hidden으로 안보이게 지정해줌. -->
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="mnum" value="<%=data.getMnum()%>">
-<input type="hidden" name="member" value="<%=data.getMember()%>">
+<input type="hidden" name="mnum" value="<%=message.getMnum()%>">
+<input type="hidden" name="member" value="<%=message.getMember()%>">
 <table border="1">
 	<tr>
 		<td>작성자</td>
-		<td><input type="text" name="writer" value="<%=data.getWriter()%>"></td>
+		<td><input type="text" name="writer" value="<%=message.getWriter()%>"></td>
 	</tr>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="title" value="<%=data.getTitle()%>"></td>
+		<td><input type="text" name="title" value="<%=message.getTitle()%>"></td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><input type="text" name="content" value="<%=data.getContent()%>"></td>
+		<td><input type="text" name="content" value="<%=message.getContent()%>"></td>
 	</tr>
-	<tr>
-		<td>작성일</td>
-		<td><input type="date" name="date" value="<%=data.getWdate()%>"></td>
-	</tr>
+	
+	<input type="hidden" type="text" name="path" value="<%=message.getPath() %>">
+	
+	
 	<tr>
 		<td colspan='2'><input type="submit" value="내용 변경하기">
 		<input type="button" value="글 삭제하기" onClick="del()"></td>
