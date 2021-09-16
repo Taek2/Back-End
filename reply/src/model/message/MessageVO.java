@@ -10,7 +10,8 @@ public class MessageVO {
 	private Date wdate;
 	private String path;
 	private int member;
-	
+	private int favor;
+	private int reply;
 	
 	public String getPath() {
 		return path;
@@ -53,6 +54,19 @@ public class MessageVO {
 	}
 	public void setWdate(Date wdate) {
 		this.wdate = wdate;
+	}
+	
+	public int getFavor() {
+		return favor;
+	}
+	public void setFavor(int favor) {
+		this.favor = favor;
+	}
+	public int getReply() {
+		return reply;
+	}
+	public void setReply(int reply) {
+		this.reply = reply;
 	}
 	@Override
 	public String toString() {

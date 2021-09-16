@@ -25,6 +25,37 @@ public class MemberDAO {
 				vo.setMemnum(rs.getInt("memnum"));
 				vo.setMid(rs.getString("mid"));
 				vo.setMpw(rs.getString("mpw"));
+				vo.setName(rs.getString("name"));
+				datas.add(vo);
+			}
+			rs.close();
+		}
+
+		catch(Exception e) {
+			System.out.println("getDBList()에서 출력");
+			e.printStackTrace();
+		}
+		finally {
+			DBCP.disconnect(pstmt, conn);
+		}
+		return datas;
+	}
+	
+	public ArrayList<MemberVO> getNewList(){
+		Connection conn = DBCP.connect();
+		ArrayList<MemberVO> datas = new ArrayList();
+		PreparedStatement pstmt = null;
+
+		try {
+			String sql = "select * from ( select * from member order by memnum desc) where ROWNUM <= 3"; // 최근 게시글 상단 배치
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setMemnum(rs.getInt("memnum"));
+				vo.setMid(rs.getString("mid"));
+				vo.setMpw(rs.getString("mpw"));
+				vo.setName(rs.getString("name"));
 				datas.add(vo);
 			}
 			rs.close();
@@ -56,6 +87,7 @@ public class MemberDAO {
 				data.setMemnum(rs.getInt("memnum"));
 				data.setMid(rs.getString("mid"));
 				data.setMpw(rs.getString("mpw"));
+				data.setName(rs.getString("name"));
 			}
 			
 			rs.close();
@@ -76,10 +108,11 @@ public class MemberDAO {
 		PreparedStatement pstmt=null;
 		try{
 			// mnum == nvl, wdate == sysdate(현재 시간) 
-			String sql="INSERT INTO member (memnum, mid, mpw) VALUES((SELECT NVL(MAX(memnum),0) + 1 FROM member), ?, ?)";
+			String sql="INSERT INTO member (memnum, mid, mpw, name) VALUES((SELECT NVL(MAX(memnum),0) + 1 FROM member), ?, ?, ?)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMid());
 			pstmt.setString(2, vo.getMpw());
+			pstmt.setString(3, vo.getName());
 			pstmt.executeUpdate();
 			res=true;
 		}
@@ -122,11 +155,12 @@ public class MemberDAO {
 		boolean res=false;
 		PreparedStatement pstmt=null;
 		try{
-			String sql="update member set mid=?, mpw=? where memnum=?";
+			String sql="update member set mid=?, mpw=?, name=? where memnum=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMid());
 			pstmt.setString(2, vo.getMpw());
-			pstmt.setInt(3, vo.getMemnum());
+			pstmt.setString(3, vo.getName());
+			pstmt.setInt(4, vo.getMemnum());
 			pstmt.executeUpdate();
 			res=true;
 		}

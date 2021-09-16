@@ -37,8 +37,8 @@
 	
 	if(action.equals("list")){
 		ArrayList<MessageVO> datas = messageDAO.getDBList(selUser, mcnt);
-		System.out.println(datas);
-		ArrayList<MemberVO> newUsers=memberDAO.getDBList();
+		//System.out.println(datas);
+		ArrayList<MemberVO> newUsers=memberDAO.getNewList();
 		request.setAttribute("datas", datas);
 		request.setAttribute("newUsers", newUsers);
 		request.setAttribute("selUser", selUser);
@@ -73,7 +73,7 @@
 		 }
 		 realFolder = "img";
 		 String fullpath = realFolder + "/" + filename1;
-		 System.out.println("fullpath = " + fullpath);
+		 //System.out.println("fullpath = " + fullpath);
 		 messageVO.setPath(fullpath);
 	
 		if(messageDAO.insertDB(messageVO)){
@@ -95,7 +95,7 @@
 		}
 	}
 	else if(action.equals("update")){
-		System.out.println("업뎃: " + messageVO);
+		//System.out.println("업뎃: " + messageVO);
 		if(messageDAO.updateDB(messageVO)){
 			// 같은 페이지의 다른 곳으로 이동할 때는 주로 redirect 방식을 이용함 -> spring에서 자세히
 			response.sendRedirect("control.jsp?action=list");
@@ -110,8 +110,8 @@
 		
 		int memnum = (int)session.getAttribute("memnum");
 		MsgSet data = messageDAO.getDBData(messageVO);
-		System.out.println("data.getMemnum() = " + data.getM().getMember());
-		System.out.println("memnum = " + memnum);
+		//System.out.println("data.getMemnum() = " + data.getM().getMember());
+		//System.out.println("memnum = " + memnum);
 		
 		if(data.getM().getMember() == memnum){
 			request.setAttribute("data", data);
@@ -130,6 +130,7 @@
 		if(memberDAO.login(memberVO) != null){
 			session.setAttribute("memnum", memberDAO.login(memberVO).getMemnum());
 			session.setAttribute("userID", memberDAO.login(memberVO).getMid());
+			session.setAttribute("username", memberDAO.login(memberVO).getName());
 			response.sendRedirect("control.jsp?action=list");
 		}
 		else{
@@ -175,7 +176,7 @@
 			pageContext.forward("control.jsp?action=read");
 		}
 	else if(action.equals("rreplyDelete")){
-		
+	
 		if(rreplyDAO.delete(rreplyVO)){
 			System.out.println("삭제 성공");
 		}
@@ -186,6 +187,7 @@
 	}
 	else if(action.equals("replyDelete")){
 			
+			System.out.println("댓글: " + replyVO.getRreply());
 			if(replyDAO.delete(replyVO)){
 				System.out.println("삭제 성공");
 			}
@@ -194,6 +196,15 @@
 			}
 			pageContext.forward("control.jsp?action=read");
 		}
+	else if(action.equals("favor")){
+		messageDAO.favorUp(messageVO);
+		pageContext.forward("control.jsp?action=read");
+	}
+	else if(action.equals("index")){
+		ArrayList<MemberVO> memberList = memberDAO.getDBList();
+		request.setAttribute("datas", memberList);
+		pageContext.forward("login.jsp");
+	}
 	else{
 		out.println("오류 발생!");
 	}

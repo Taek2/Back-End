@@ -3,12 +3,13 @@ package model.reply;
 import java.sql.Date;
 
 public class RReplyVO {
-	private int rrpk;
-	private int rrnum;
+	private int rrpk; // 대댓글의 넘버
+	private int rrnum; // 댓글의 넘버
 	private Date rrdate;
 	private String rrcontent;
 	private String rrwriter;
-	private int rrmember;
+	private int rrmember; // 댓글쓴 멤버 넘버
+	private int rrmnum; // 메시지 넘버
 	
 	public int getRrnum() {
 		return rrnum;
@@ -46,6 +47,13 @@ public class RReplyVO {
 	}
 	public void setRrmember(int rrmember) {
 		this.rrmember = rrmember;
+	}
+	
+	public int getRrmnum() {
+		return rrmnum;
+	}
+	public void setRrmnum(int rrmnum) {
+		this.rrmnum = rrmnum;
 	}
 	@Override
 	public String toString() {

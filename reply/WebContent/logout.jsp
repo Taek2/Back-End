@@ -8,7 +8,7 @@
 <%
 	// 세션 정보 해제
 	session.invalidate();
-	pageContext.forward("login.jsp");
+	pageContext.forward("index.jsp");
 
 
 %>

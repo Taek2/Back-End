@@ -9,6 +9,8 @@ public class ReplyVO {
 	private String rwriter;
 	int rmember;
 	int rmnum;
+	int rreply;
+	
 	public int getRnum() {
 		return rnum;
 	}
@@ -46,6 +48,12 @@ public class ReplyVO {
 	}
 	public void setRmnum(int rmnum) {
 		this.rmnum = rmnum;
+	}
+	public int getRreply() {
+		return rreply;
+	}
+	public void setRreply(int rreply) {
+		this.rreply = rreply;
 	}
 	@Override
 	public String toString() {

@@ -5,9 +5,16 @@ create table message(
 	content varchar(200) not null,
 	wdate date default sysdate,
 	member int,
+	favor int default 0,
+	reply int default 0,
 	path varchar(1000),
 	foreign key (member) references member(memnum) on delete cascade
 );
+SELECT * FROM message;
+ALTER TABLE message ADD reply int default 0;
+ALTER TABLE rreply ADD rrmnum int;
+ALTER TABLE reply ADD rreply int defalut 0;
+ALTER TABLE reply MODIFY(rreply int default 0);
 select * from ( select * from message order by wdate desc ) where ROWNUM <= 3;
 
 CREATE TABLE reply(
@@ -17,10 +24,18 @@ CREATE TABLE reply(
 	rwriter varchar(30) not null,
 	rmember int,
 	rmnum int,
+	rreply int default 0,
 	foreign key (rmnum) references message(mnum) on delete cascade
 )
 select * from reply;
 drop table reply;
+delete from reply;
+delete from member;
+delete from rreply;
+select * from reply;
+select * from message;
+update message set reply=0 where mnum=8;
+update message set reply=0 where mnum=2;
 
 delete from reply where rnum=3;
 CREATE TABLE rreply(
@@ -30,9 +45,13 @@ CREATE TABLE rreply(
 	rrcontent varchar(200) not null,
 	rrwriter varchar(30) not null,
 	rrmember int,
+	rrmnum int,
 	foreign key (rrnum) references reply(rnum) on delete cascade
 )
 drop table rreply;
+drop table reply;
+drop table message;
+drop table member;
 delete from rreply;
 delete from reply;
 
@@ -41,29 +60,10 @@ select * from rreply where rrnum=3 order by rrdate;
 create table member(
 	memnum int primary key,
 	mid varchar(30),
-	mpw varchar(30)
+	mpw varchar(30),
+	name varchar(30)
 );
 
-CREATE TABLE BBS(
-	boardID int,
-	bbsID int,
-	bbsTitle varchar(1000),
-	userID varchar(300),
-	bbsDate varchar(300),
-	bbsContent varchar(3000),
-	map varchar(3000),
-	bbsAvailable int
-);
-
-DROP TABLE BBS;
-
-CREATE TABLE BBS_FILE(
-FILENAME VARCHAR(20),
-FILEREALNAME VARCHAR(20),
-BBSID NUMBER);
-
-select * from BBS_FILE;
-DROP TABLE BBS_FILE;
 
 drop table message;
 drop table member;

@@ -47,6 +47,10 @@ tr:last-child{
 		<td>${message.wdate}</td>
 	</tr>
 	<tr>
+		<td>좋아요    <a href="control.jsp?action=favor&mnum=${message.mnum}"><input type="button" value="♥"></a></td>
+		<td>${message.favor}</td>
+	</tr>
+	<tr>
 		<td>내용</td>
 		<td><img src="${message.path}" width=512 height=384></img><br><br>${message.content}</td>
 	</tr>
@@ -58,7 +62,7 @@ tr:last-child{
 	<input type="text" value="${rs.r.rcontent}">
 	
 	<c:if test="${rs.r.rmember == memnum}">
-		<a href="control.jsp?action=replyDelete&rnum=${rs.r.rnum}&mnum=${message.mnum}"><input type="button" value="댓글 삭제"></a>
+		<a href="control.jsp?action=replyDelete&rnum=${rs.r.rnum}&mnum=${message.mnum}&rreply=${rs.r.rreply}&rmnum=${rs.r.rmnum}"><input type="button" value="댓글 삭제"></a>
 	</c:if>
 	${rs.r.rdate}
 	<br>
@@ -68,7 +72,7 @@ tr:last-child{
 		<input type="text" value="${rrs.rrcontent}">
 		
 		<c:if test="${rrs.rrmember == memnum}">
-			<a href="control.jsp?action=rreplyDelete&rrpk=${rrs.rrpk}&mnum=${message.mnum}"><input type="button" value="답글 삭제"></a>
+			<a href="control.jsp?action=rreplyDelete&rrpk=${rrs.rrpk}&mnum=${message.mnum}&rrmnum=${message.mnum}&rrnum=${rrs.rrnum}"><input type="button" value="답글 삭제"></a>
 		</c:if>
 		<br>
 	</c:forEach>
@@ -77,8 +81,9 @@ tr:last-child{
 		<input type="hidden" name="rrnum" value="${rs.r.rnum}">
 		<input type="hidden" name="mnum" value="${message.mnum}">
 		<input type="hidden" name="rrmember" value="${memnum}">
+		<input type="hidden" name="rrmnum" value="${message.mnum}">
 		
-		┗><input type="text" name="rrwriter" value="${userID}" readonly>
+		┗><input type="text" name="rrwriter" value="${username}" readonly>
 		<input type="text" name="rrcontent" placeholder="답글">
 		<input type="submit" value="답글 등록">
 	</form>
@@ -92,7 +97,7 @@ tr:last-child{
 	<input type="hidden" name="rmember" value="${memnum}">
 	<input type="hidden" name="rmnum" value="${message.mnum}">
 	<input type="hidden" name="mnum" value="${message.mnum}">
-	<input type="text" name="rwriter" value="${userID}" readonly>
+	<input type="text" name="rwriter" value="${username}" readonly>
 	<input type="text" placeholder="댓글 입력" name="rcontent">
 	<input type="submit" value="댓글 등록">
 </form>

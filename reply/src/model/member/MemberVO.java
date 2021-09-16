@@ -4,6 +4,8 @@ public class MemberVO {
 	private int memnum;
 	private String mid;
 	private String mpw;
+	private String name;
+	
 	public int getMemnum() {
 		return memnum;
 	}
@@ -22,10 +24,18 @@ public class MemberVO {
 	public void setMpw(String mpw) {
 		this.mpw = mpw;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public String toString() {
-		return "MemberVO [memnum=" + memnum + ", mid=" + mid + ", mpw=" + mpw + "]";
+		return "MemberVO [memnum=" + memnum + ", mid=" + mid + ", mpw=" + mpw + ", name=" + name + "]";
 	}
+	
 	
 
 }
