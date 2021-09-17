@@ -1,0 +1,17 @@
+@charset "UTF-8";
+.content{
+	float: left;
+	width: 60%
+}
+.ad{
+	float: right;
+}
+.ad ul{
+	list-style: none;
+}
+h3 a{
+	text-decoration: none;
+}
+table{
+	width:60%;
+}
