@@ -29,7 +29,7 @@
 	<tr>
 		<!-- 글 번호를 누르면 edit(수정)으로 포워딩, & 연산자를 사용해 원하는 파라미터 값을 넘길 수 있다. -->
 		<td><a href="messageEdit.do?mnum=${v.mnum}">${v.mnum}</a></td>
-		<td><a href="messageRead.do?mnum=${v.mnum}">${v.title}</a></td>
+		<td><a href="messageRead.do?mnum=${v.mnum}&mcnt=${mcnt}">${v.title}</a></td>
 		<td>${v.writer}</td>
 		<td>${v.wdate}</td>
 		<td>${v.favor}</td>
@@ -41,14 +41,14 @@
 <a href="main.do?mcnt=${mcnt+1}&selUser=${selUser}">더보기&gt;&gt;</a>
 
 <br><br>
-${userID}님, 환영합니다!<br>
-<a href="main.do?selUser=${memnum}">내글목록보기</a>
+${username}님, 환영합니다!<br>
+<a href="main.do?selUser=${memnum}&mcnt=${mcnt}">내글목록보기</a>
 <a href="logout.jsp">로그아웃</a>
 
 <h4>신규 회원 목록</h4>
 <ol>
 	<c:forEach var="u" items="${newUsers}">
-		<li><a href="main.do?selUser=${u.memnum}">${u.name}</a>님 가입</li>
+		<li><a href="main.do?selUser=${u.memnum}&mcnt=${mcnt}">${u.name}</a>님 가입</li>
 	</c:forEach>
 </ol>
 </div>

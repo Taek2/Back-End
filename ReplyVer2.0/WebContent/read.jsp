@@ -62,7 +62,7 @@ tr:last-child{
 	<input type="text" value="${rs.r.rcontent}">
 	
 	<c:if test="${rs.r.rmember == memnum}">
-		<a href="control.jsp?action=replyDelete&rnum=${rs.r.rnum}&mnum=${message.mnum}&rreply=${rs.r.rreply}&rmnum=${rs.r.rmnum}"><input type="button" value="댓글 삭제"></a>
+		<a href="replyDelete.do?rnum=${rs.r.rnum}&mnum=${message.mnum}&rreply=${rs.r.rreply}&rmnum=${rs.r.rmnum}&mcnt=${mcnt}"><input type="button" value="댓글 삭제"></a>
 	</c:if>
 	${rs.r.rdate}
 	<br>
@@ -72,14 +72,15 @@ tr:last-child{
 		<input type="text" value="${rrs.rrcontent}">
 		
 		<c:if test="${rrs.rrmember == memnum}">
-			<a href="control.jsp?action=rreplyDelete&rrpk=${rrs.rrpk}&mnum=${message.mnum}&rrmnum=${message.mnum}&rrnum=${rrs.rrnum}"><input type="button" value="답글 삭제"></a>
+			<a href="rreplyDelete.do?rrpk=${rrs.rrpk}&mnum=${message.mnum}&rrmnum=${message.mnum}&rrnum=${rrs.rrnum}&mcnt=${mcnt}"><input type="button" value="답글 삭제"></a>
 		</c:if>
 		<br>
 	</c:forEach>
 	
-	<form method="post" action="control.jsp?action=addrreply">
+	<form method="post" action="rreplyWrite.do">
 		<input type="hidden" name="rrnum" value="${rs.r.rnum}">
 		<input type="hidden" name="mnum" value="${message.mnum}">
+		<input type="hidden" name="mcnt" value="${mcnt}">
 		<input type="hidden" name="rrmember" value="${memnum}">
 		<input type="hidden" name="rrmnum" value="${message.mnum}">
 		
@@ -92,9 +93,9 @@ tr:last-child{
 
 <!-- 댓글 입력 -->
 <br><br>
-<form method="post" action="control.jsp">
-	<input type="hidden" name="action" value="addreply">
+<form method="post" action="replyWrite.do">
 	<input type="hidden" name="rmember" value="${memnum}">
+	<input type="hidden" name="mcnt" value="${mcnt}">
 	<input type="hidden" name="rmnum" value="${message.mnum}">
 	<input type="hidden" name="mnum" value="${message.mnum}">
 	<input type="text" name="rwriter" value="${username}" readonly>
@@ -102,7 +103,7 @@ tr:last-child{
 	<input type="submit" value="댓글 등록">
 </form>
 
-<a href="main.do"><input type="button" value="뒤로가기"></a>
+<a href="main.do?mcnt=${mcnt}"><input type="button" value="뒤로가기"></a>
 
 </body>
 </html>

@@ -20,6 +20,10 @@ import controller.action.MessageEditAction;
 import controller.action.MessageReadAction;
 import controller.action.MessageUpdateAction;
 import controller.action.MessageWriteAction;
+import controller.action.RReplyDeleteAction;
+import controller.action.RReplyWriteAction;
+import controller.action.ReplyDeleteAction;
+import controller.action.ReplyWriteAction;
 
 /**
  * Servlet implementation class FrontController
@@ -89,6 +93,18 @@ public class FrontController extends HttpServlet {
 		}
 		else if(action.equals("/favorUp.do")) {
 			forward=new FavorUpAction().execute(request, response);
+		}
+		else if(action.equals("/replyWrite.do")) {
+			forward=new ReplyWriteAction().execute(request, response);
+		}
+		else if(action.equals("/replyDelete.do")) {
+			forward=new ReplyDeleteAction().execute(request, response);
+		}
+		else if(action.equals("/rreplyWrite.do")) {
+			forward=new RReplyWriteAction().execute(request, response);
+		}
+		else if(action.equals("/rreplyDelete.do")) {
+			forward=new RReplyDeleteAction().execute(request, response);
 		}
 		else {
 			// 에러페이지랑 연결

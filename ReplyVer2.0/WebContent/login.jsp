@@ -14,8 +14,7 @@
 </head>
 <body> 
 <div class="content">
-<form action="control.jsp" method="post" name="form1">
-	<input type="hidden" name="action" value="login">
+<form action="login.do" method="post" name="form1">
 	<table border="1">
 		<th>로그인</th>
 		<tr>

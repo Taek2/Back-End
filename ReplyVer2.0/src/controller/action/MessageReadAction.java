@@ -22,8 +22,8 @@ public class MessageReadAction implements Action{
 		MessageVO mVO = new MessageVO();
 		mVO.setMnum(Integer.parseInt(request.getParameter("mnum")));
 		MsgSet data = mDAO.getDBData(mVO);
-		
 		request.setAttribute("data", data);
+		request.setAttribute("mcnt", request.getParameter("mcnt"));
 		
 		forward.setRedirect(false);
 		forward.setPath("read.jsp");

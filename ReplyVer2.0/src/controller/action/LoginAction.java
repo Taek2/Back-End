@@ -40,6 +40,9 @@ public class LoginAction implements Action{
 		}
 		else {
 			PrintWriter out=response.getWriter();
+			response.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8"); 
 			out.println("<script>alert('아이디 비밀번호를 확인하세요!');history.go(-1);</script>");
 		}
 		
