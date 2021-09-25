@@ -13,7 +13,7 @@
 		if(result==true){
 			document.form1.action="messageDelete.do"; 
 			document.form1.submit();
-		}
+		} 
 		else{
 			return;
 		} 
