@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="mytag" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +96,14 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+                  <!-- write form -->
+	              <form class="write_container">
+		               <span class="user"></span>
+		                <textarea placeholder="방명록을 작성하세요."></textarea> 
+		                <input type="submit" class="btn write_btn" id="write_btn" value="작성하기">
+		          </form>
+                <!-- //write form -->
+                
                 <div class="row">
                     <div class="col-12">
                        
@@ -102,16 +111,19 @@
                               This is some text within a card block.
                           </div-->
                           <div class="guestBook_wrap">
+                             <c:forEach var="v" items="${pData}">
                              <div class="guestBook">
-                               <div class="guest_profile"></div>
+                               <div class="guest_profile"><img src="assets/profileImage/${v.p_user}_profile.jpg" alt="userProfileImage" /></div>
                                <div class="guest_contents">  
-                                  <h3 class="guest_id">오현택12</h3>
-                                  <div class="guest_txt">방명록 내용 들어가는 위치</div>
-                                  <p class="date">2021.10.23</p>
+                                  <h3 class="guest_id">${v.writer}</h3>
+                                  <div class="guest_txt">${v.content}</div>
+                                  <p class="date">${v.pdate}</p>
                                </div>
                                <span class="good_icon material-icons">thumb_up_off_alt</span>
                              </div>
-                             <div class="guestBook">
+                             </c:forEach>
+                             
+                             <!-- <div class="guestBook">
                                <div class="guest_profile"></div>
                                <div class="guest_contents">  
                                   <h3 class="guest_id">오현택12</h3>
@@ -147,7 +159,7 @@
                                   <p class="date">2021.10.23</p>
                                </div>
                                <span class="good_icon material-icons">thumb_up_off_alt</span>
-                             </div>
+                             </div> -->
                           </div>
                         
                     </div>

@@ -4,18 +4,17 @@ Author: Wrappixel
 Email: niravjoshi87@gmail.com
 File: js
 */
-$(document).ready(function() {
+$(document).ready(refresh()) ;
     "use strict";
     // ============================================================== 
     // Newsletter
     // ============================================================== 
-   
+function refresh(){
 	var lat;
 	var lng;
 	if (navigator.geolocation) { // GPS를 지원하면
 	    navigator.geolocation.getCurrentPosition(function(position) {
-	      // 위도 : lat 경도 : lng 
-	      console.log("함수들어옴!")
+	      // 위도 : lat 경도 : lng   
 	      lat=position.coords.latitude;
 	      lng=position.coords.longitude;
 	      var geocode = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&language=ko&key=AIzaSyBTQZ3qftgrOjXVpGgS68to76ZrYz8e2xo";
@@ -71,22 +70,63 @@ $(document).ready(function() {
             success: function(weatherData){
                // console.log("현재온도: " + weatherData.current.temp); // 현재온도
                const days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+               const days_full = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday"];
                var labels = [];
                var series = [];
                var maxTemp = [];
                var minTemp = [];
+               
+               // 오늘 날씨 데이터 정제
+               var curDate = new Date(weatherData.current.dt * 1000);
+               $("#currentIcon").attr("src", "http://openweathermap.org/img/wn/" + weatherData.current.weather[0].icon + "@2x.png");
+               $("#currentTemp").text((Math.round(weatherData.current.temp * 10) / 10) + "°C");
+               $("#currentWeek").text(curDate.getDate() + "일(" + days[curDate.getDay()] + ")");
+               var curHour = curDate.getHours();
+               curHour = curHour >= 10 ? curHour : '0' + curHour;
+               var curMin = curDate.getMinutes();
+               curMin = curMin >= 10 ? curMin : '0' + curMin;
+               var curSec = curDate.getSeconds();
+               curSec = curSec >= 10 ? curSec : '0' + curSec;
+               
+               $("#currentTime").text("현재 시각 " + curHour + ":" + curMin + ":" + curSec + " 기준");
+               $("#currentWind").text(weatherData.current.wind_speed + " m/s");
+               $("#currentHumidity").text(weatherData.current.humidity + " %");
+               $("#currentPressure").text(weatherData.current.pressure + " hPa");
+               $("#currentCloud").text(weatherData.current.clouds + " %");
+               
+               // 시간 별 데이터 정제
+               var hourly = weatherData.hourly;
+               
+               for(var i = 0; i < 8; i++){
+            	   if(i == 1 || i == 3 || i == 5 || i == 7){
+            		   var hourTime = new Date(hourly[i].dt * 1000);
+            		   $("#hourlyImg"+i).attr("src", "http://openweathermap.org/img/wn/" + hourly[i].weather[0].icon + "@2x.png");
+            		   var hourlyHour = hourTime.getHours();
+            		   hourlyHour = hourlyHour >= 10 ? hourlyHour : '0' + hourlyHour;
+            		   $("#hourly"+i).text(hourlyHour+ ":00");
+            		   $("#hourlyTemp"+i).text((Math.round(hourly[i].temp * 10) / 10) + "°")
+            		   console.log(hourTime);   
+            	   }
+            	   
+               }
+               
+              
+               //Math.round(1.222 * 10) / 10;
+               
+               // 일주일 날씨 데이터 정제
                for(var i = 0; i < 7; i++){
             	   var date = new Date(weatherData.daily[i].dt * 1000);
-            	   console.log("날짜: " + date.getDate() + "일(" + days[date.getDay()] + ")");
+            	   //console.log("날짜: " + date.getDate() + "일(" + days[date.getDay()] + ")");
             	   labels.push(date.getDate() + "일(" + days[date.getDay()] + ")");
             	   maxTemp.push(weatherData.daily[i].temp.max);
             	   minTemp.push(weatherData.daily[i].temp.min);
-            	   console.log(date.getDate() + "일(" + days[date.getDay()] + ")" + " 최고기온: " + weatherData.daily[i].temp.max); 
-            	   console.log(date.getDate() + "일(" + days[date.getDay()] + ")" + " 최저기온: " + weatherData.daily[i].temp.min); 
+            	   //console.log(date.getDate() + "일(" + days[date.getDay()] + ")" + " 최고기온: " + weatherData.daily[i].temp.max); 
+            	   //console.log(date.getDate() + "일(" + days[date.getDay()] + ")" + " 최저기온: " + weatherData.daily[i].temp.min); 
                }
+               
                var series = [maxTemp, minTemp];
-               console.log("labels = " + labels);
-               console.log("series = " + series);
+               //console.log("labels = " + labels);
+               //console.log("series = " + series);
                var chart = new Chartist.Line('.campaign', {
                    labels: labels,
                    series: series
@@ -145,4 +185,4 @@ $(document).ready(function() {
         	});
     	}
     
-});
+}

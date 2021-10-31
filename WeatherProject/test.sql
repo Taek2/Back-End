@@ -19,7 +19,7 @@ create table postInfo(
 	foreign key (p_user) references profile(id) on delete cascade
 );
 
-
+INSERT INTO postInfo (pnum, content, writer, p_user) values(1,'æ»≥Á«œººø‰','Oh HyunTaek','gus3578');
 select * from profile;
 delete from profile;
 select * from postInfo;

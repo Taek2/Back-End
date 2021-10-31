@@ -8,21 +8,25 @@
                     <!-- ============================================================== -->
                     <a class="navbar-brand" href="index.jsp">
                         <!-- Logo icon -->
-                        <b class="logo-icon">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
+                        <img src="assets/images/logo-good.png" style="margin-left:10px;"alt="homepage" class="light-logo" width="150" height="45" />
+                        
+                        <!-- <b class="logo-icon">
+                            You can put here icon as well // <i class="wi wi-sunset"></i> //
+                            Dark Logo icon
+                            
                             <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                            <!-- Light Logo icon -->
+                            Light Logo icon
                             <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                        </b>
+                             
+                        </b> -->
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text">
-                             <!-- dark Logo text -->
+                        <!-- <span class="logo-text">
+                             dark Logo text
                              <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                             <!-- Light Logo text -->    
+                             Light Logo text    
                              <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                        </span>
+                        </span> -->
                     </a>
                     <!-- ============================================================== -->
                     <!-- End Logo -->

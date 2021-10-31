@@ -130,8 +130,8 @@
                     <div class="col-md-4 weather_txt">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title" id="address">현재 위치 : <span>정보 없음</span></h4>
-                                <div id="replay"><span class="material-icons" >replay</span></div>
+                                <h4 class="card-title" id="address">내 위치 : <span>정보 없음</span></h4>
+                                <div id="replay"><span class="material-icons" onclick="refresh()">replay</span></div>
                                 <div class="feed-widget">
                                     <ul class="list-style-none feed-body m-0 p-b-20">
                                         <li class="feed-item">
@@ -344,57 +344,66 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!--  <i class="wi wi-day-showers"></i>-->
                     <!-- column -->
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Temp Guide</h4>
+                                <h4 class="card-title">현재 날씨 정보</h4>
                                 <div class="d-flex align-items-center flex-row m-t-30">
-                                    <div class="display-5 text-info"><i class="wi wi-day-showers"></i> <span>73<sup>°</sup></span></div>
-                                    <div class="m-l-10">
-                                        <h3 class="m-b-0">Saturday</h3><small>Ahmedabad, India</small>
+                                    <div class="display-5 text-info"><img src="" id="currentIcon"> <span id="currentTemp">73<sup>°</sup></span></div>
+                                    <div class="m-l-10" id="weatherInfo">
+                                        <h3 class="m-b-0" id="currentWeek">Saturday</h3><small id="currentTime">Ahmedabad, India</small>
                                     </div>
                                 </div>
                                 <table class="table no-border mini-table m-t-20">
                                     <tbody>
                                         <tr>
-                                            <td class="text-muted">Wind</td>
-                                            <td class="font-medium">ESE 17 mph</td>
+                                            <td class="text-muted">WindSpeed</td>
+                                            <td class="font-medium" id="currentWind">ESE 17 mph</td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Humidity</td>
-                                            <td class="font-medium">83%</td>
+                                            <td class="font-medium" id="currentHumidity">83%</td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Pressure</td>
-                                            <td class="font-medium">28.56 in</td>
+                                            <td class="font-medium" id="currentPressure">28.56 in</td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Cloud Cover</td>
-                                            <td class="font-medium">78%</td>
+                                            <td class="font-medium" id="currentCloud">78%</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <!-- 
+                                <i class="wi wi-day-sunny">
+                                <i class="wi wi-day-cloudy"></i>
+                                <i class="wi wi-day-hail"></i>
+                                <i class="wi wi-day-sprinkle"></i>
+                                 -->
+                                
                                 <ul class="row list-style-none text-center m-t-30">
                                     <li class="col-3">
-                                        <h4 class="text-info"><i class="wi wi-day-sunny"></i></h4>
-                                        <span class="d-block text-muted">09:30</span>
-                                        <h3 class="m-t-5">70<sup>°</sup></h3>
+                                        <h4 class="text-info"><img src="" id="hourlyImg1"></h4>
+                                        <span class="d-block text-muted" id="hourly1">09:30</span>
+                                        <h3 class="m-t-5" id="hourlyTemp1">70<sup>°</sup></h3>
                                     </li>
                                     <li class="col-3">
-                                        <h4 class="text-info"><i class="wi wi-day-cloudy"></i></h4>
-                                        <span class="d-block text-muted">11:30</span>
-                                        <h3 class="m-t-5">72<sup>°</sup></h3>
+                                        <h4 class="text-info"><img src="" id="hourlyImg3"></h4>
+                                        <span class="d-block text-muted" id="hourly3">11:30</span>
+                                        <h3 class="m-t-5" id="hourlyTemp3">72<sup>°</sup></h3>
                                     </li>
                                     <li class="col-3">
-                                        <h4 class="text-info"><i class="wi wi-day-hail"></i></h4>
-                                        <span class="d-block text-muted">13:30</span>
-                                        <h3 class="m-t-5">75<sup>°</sup></h3>
+                                        <h4 class="text-info"><img src="" id="hourlyImg5"></h4>
+                                        <span class="d-block text-muted" id="hourly5">13:30</span>
+                                        <h3 class="m-t-5" id="hourlyTemp5">75<sup>°</sup></h3>
                                     </li>
                                     <li class="col-3">
-                                        <h4 class="text-info"><i class="wi wi-day-sprinkle"></i></h4>
-                                        <span class="d-block text-muted">15:30</span>
-                                        <h3 class="m-t-5">76<sup>°</sup></h3>
+                                        <h4 class="text-info"><img src="" id="hourlyImg7"></h4>
+                                        <span class="d-block text-muted" id="hourly7">15:30</span>
+                                        <h3 class="m-t-5" id="hourlyTemp7">76<sup>°</sup></h3>
                                     </li>
                                 </ul>
                             </div>
@@ -441,6 +450,7 @@
     <script src="dist/js/custom.js"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
+    <script src="dist/js/common.js"></script>
     <script src="assets/libs/chartist/dist/chartist.min.js"></script>
     <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="dist/js/pages/dashboards/dashboard1.js"></script>
