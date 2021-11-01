@@ -69,7 +69,7 @@
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
                     <div class="col-5">
-                        <h4 class="page-title">Starter Page</h4>
+                        <h4 class="page-title">오늘 뭐 입지?</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -97,10 +97,12 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                   <!-- write form -->
-	              <form class="write_container">
-		               <span class="user"></span>
-		                <textarea placeholder="방명록을 작성하세요."></textarea> 
-		                <input type="submit" class="btn write_btn" id="write_btn" value="작성하기">
+	              <form class="write_container" action="insertPost.do">
+		               <span class="user"><img src="assets/profileImage/${userInfo.id}_profile.jpg" alt="userProfileImage" /></span>
+		               <input type="hidden" name="writer" value="${userInfo.name}">
+		               <input type="hidden" name="p_user" value="${userInfo.id}">  
+		               <textarea name="content" placeholder="오늘 뭐 입을지 추천해보세요!"></textarea> 
+		               <input type="submit" class="btn write_btn" id="write_btn" value="작성하기">
 		          </form>
                 <!-- //write form -->
                 
@@ -111,13 +113,17 @@
                               This is some text within a card block.
                           </div-->
                           <div class="guestBook_wrap">
-                             <c:forEach var="v" items="${pData}">
+                             <c:forEach var="v" items="${pData}" varStatus="status">
                              <div class="guestBook">
                                <div class="guest_profile"><img src="assets/profileImage/${v.p_user}_profile.jpg" alt="userProfileImage" /></div>
                                <div class="guest_contents">  
+                                  <input type="hidden" id="postNum${status.index}" value="${v.pnum}">
                                   <h3 class="guest_id">${v.writer}</h3>
-                                  <div class="guest_txt">${v.content}</div>
-                                  <p class="date">${v.pdate}</p>
+                                  <div class="guest_txt" id="content${status.index}">${v.content}</div>
+                                  <div class="guest_txt dnone" id="uContentArea${status.index}"><textarea rows="3" id="uContent${status.index}">${v.content}</textarea></div>
+                                  <p class="date" id="Option${status.index}"><c:if test="${v.p_user == userInfo.id}"><a href="javascript:void(0);" onclick="msgEdit(${status.index})">수정</a><a href="javascript:void(0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;삭제</a></c:if></p>
+                                  <p class="date dnone" id="uOption${status.index}"><a href="javascript:void(0);" onclick="msgEditFinish(${status.index})">수정하기</a><a href="javascript:void(0);" onclick="editCancel(${status.index})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;취소</a></p>
+                                  <p class="date" id="postDate${status.index}">${v.pdate}</p>
                                </div>
                                <span class="good_icon material-icons">thumb_up_off_alt</span>
                              </div>
@@ -205,6 +211,7 @@
     <script src="dist/js/app-style-switcher.js"></script>
     <!--Wave Effects -->
     <script src="dist/js/waves.js"></script>
+    <script src="dist/js/common.js"></script>
     <!--Menu sidebar -->
     <script src="dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->

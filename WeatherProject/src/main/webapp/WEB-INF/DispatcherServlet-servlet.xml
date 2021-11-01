@@ -8,7 +8,7 @@
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<context:component-scan base-package="controller.action"></context:component-scan>
-
+ 
 	<!-- controll advice 같은 어노테이션을 보게 만들어 주는 코드 -->
 	<mvc:annotation-driven></mvc:annotation-driven>
 	

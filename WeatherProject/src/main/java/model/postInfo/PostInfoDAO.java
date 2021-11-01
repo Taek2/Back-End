@@ -31,13 +31,18 @@ public class PostInfoDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private final String getPostListSQL="SELECT * FROM postInfo";
+	private final String getPostListSQL="SELECT * FROM postInfo ORDER BY pdate DESC";
+	private final String getPostSQL="SELECT * FROM postInfo WHERE pnum=?";
 	private final String insertPostSQL="INSERT INTO postInfo (pnum, content, writer, p_user) VALUES ((SELECT NVL(MAX(pnum),0) + 1 FROM postInfo), ?, ?, ?)";
 	private final String updatePostSQL="UPDATE postInfo SET content=?, pdate=sysdate WHERE pnum=?";
 	private final String deletePostSQL="DELETE FROM postInfo WHERE pnum=?";
 	
 	public List<PostInfoVO> getPostList() {
 		return jdbcTemplate.query(getPostListSQL, new PostInfoRowMapper());
+	}
+	public PostInfoVO getPost(PostInfoVO vo) {
+		Object[] args= {vo.getPnum()};
+		return jdbcTemplate.queryForObject(getPostSQL, args, new PostInfoRowMapper());
 	}
 	public boolean insertPost(PostInfoVO vo) {
 		Object[] args= {vo.getContent(), vo.getWriter(), vo.getP_user()};

@@ -31,4 +31,9 @@ public class PostInfoServiceImpl implements PostInfoService{
 		return postInfoDAO.deletePost(vo);
 	}
 
+	@Override
+	public PostInfoVO getPost(PostInfoVO vo) {	
+		return postInfoDAO.getPost(vo);
+	}
+
 }
