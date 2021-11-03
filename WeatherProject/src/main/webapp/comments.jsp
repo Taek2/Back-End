@@ -80,9 +80,10 @@
                         </div>
                     </div>
                     <div class="col-7">
-                        <div class="text-right upgrade-btn">
+                        
+                        <!-- <div class="text-right upgrade-btn">
                             <a href="https://wrappixel.com/templates/xtremeadmin/" class="btn btn-danger text-white" target="_blank">Upgrade to Pro</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -96,14 +97,16 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+                  <c:if test="${userInfo != null}">
                   <!-- write form -->
 	              <form class="write_container" action="insertPost.do">
-		               <span class="user"><img src="assets/profileImage/${userInfo.id}_profile.jpg" alt="userProfileImage" /></span>
+		               <span class="user"><img src="assets/profileImage/${userInfo.id}_profile.jpg" alt="userProfileImage" onerror="this.src='assets/profileImage/defaultImage.jpg'" /></span>
 		               <input type="hidden" name="writer" value="${userInfo.name}">
 		               <input type="hidden" name="p_user" value="${userInfo.id}">  
 		               <textarea name="content" placeholder="오늘 뭐 입을지 추천해보세요!"></textarea> 
 		               <input type="submit" class="btn write_btn" id="write_btn" value="작성하기">
 		          </form>
+		          </c:if>
                 <!-- //write form -->
                 
                 <div class="row">
@@ -114,14 +117,14 @@
                           </div-->
                           <div class="guestBook_wrap">
                              <c:forEach var="v" items="${pData}" varStatus="status">
-                             <div class="guestBook">
+                             <div class="guestBook" id="post${status.index}">
                                <div class="guest_profile"><img src="assets/profileImage/${v.p_user}_profile.jpg" alt="userProfileImage" /></div>
                                <div class="guest_contents">  
                                   <input type="hidden" id="postNum${status.index}" value="${v.pnum}">
                                   <h3 class="guest_id">${v.writer}</h3>
                                   <div class="guest_txt" id="content${status.index}">${v.content}</div>
                                   <div class="guest_txt dnone" id="uContentArea${status.index}"><textarea rows="3" id="uContent${status.index}">${v.content}</textarea></div>
-                                  <p class="date" id="Option${status.index}"><c:if test="${v.p_user == userInfo.id}"><a href="javascript:void(0);" onclick="msgEdit(${status.index})">수정</a><a href="javascript:void(0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;삭제</a></c:if></p>
+                                  <p class="date" id="Option${status.index}"><c:if test="${v.p_user == userInfo.id}"><a href="javascript:void(0);" onclick="msgEdit(${status.index})">수정</a><a href="javascript:void(0);" onclick="msgDelete(${status.index})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;삭제</a></c:if></p>
                                   <p class="date dnone" id="uOption${status.index}"><a href="javascript:void(0);" onclick="msgEditFinish(${status.index})">수정하기</a><a href="javascript:void(0);" onclick="editCancel(${status.index})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;취소</a></p>
                                   <p class="date" id="postDate${status.index}">${v.pdate}</p>
                                </div>

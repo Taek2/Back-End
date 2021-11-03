@@ -168,10 +168,9 @@
                                     <div class="ml-auto">
                                         <div class="dl">
                                             <select class="custom-select">
-                                                <option value="0" selected>Monthly</option>
-                                                <option value="1">Daily</option>
-                                                <option value="2">Weekly</option>
-                                                <option value="3">Yearly</option>
+                                                <option value="0" selected>해와 달</option>
+                                                <option value="1">기온</option>
+                                                <option value="2">날씨</option>
                                             </select>
                                         </div>
                                     </div>
@@ -182,94 +181,140 @@
                                 <table class="table v-middle">
                                     <thead>
                                         <tr class="bg-light">
-                                            <th class="border-top-0">Products</th>
-                                            <th class="border-top-0">License</th>
-                                            <th class="border-top-0">Support Agent</th>
-                                            <th class="border-top-0">Technology</th>
-                                            <th class="border-top-0">Tickets</th>
-                                            <th class="border-top-0">Sales</th>
-                                            <th class="border-top-0">Earnings</th>
+                                            <th class="border-top-0" id="th0">Date</th>
+                                            <th class="border-top-0" id="th1">Sunrise</th>
+                                            <th class="border-top-0" id="th2">Sunset</th>
+                                            <th class="border-top-0" id="th3">Moonrise</th>
+                                            <th class="border-top-0" id="th4">Moonset</th>
+                                            <th class="border-top-0" id="th5">Moon_phase</th>
+                                            <th class="border-top-0" id="th6">clouds</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">EA</a></div>
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white" id="weekday0">EA</a></div>
                                                     <div class="">
-                                                        <h4 class="m-b-0 font-16">Elite Admin</h4>
+                                                        <h4 class="m-b-0 font-16" id="date0">Elite Admin</h4>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Single Use</td>
-                                            <td>John Doe</td>
+                                            <td id="sunrise0">Single Use</td>
+                                            <td id="sunset0">John Doe</td>
+                                            <td id="moonrise0">angular</td>
+                                            <td id="moonset0">46</td>
+                                            <td id="moon_phase0">356</td>
                                             <td>
-                                                <label class="label label-danger">Angular</label>
-                                            </td>
-                                            <td>46</td>
-                                            <td>356</td>
-                                            <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
+                                                <h5 class="m-b-0" id="clouds0">$2850.06</h5>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-orange text-white">MA</a></div>
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-orange text-white" id="weekday1">EA</a></div>
                                                     <div class="">
-                                                        <h4 class="m-b-0 font-16">Monster Admin</h4>
+                                                        <h4 class="m-b-0 font-16" id="date1">Elite Admin</h4>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Single Use</td>
-                                            <td>Venessa Fern</td>
+                                            <td id="sunrise1">Single Use</td>
+                                            <td id="sunset1">John Doe</td>
+                                            <td id="moonrise1">angular</td>
+                                            <td id="moonset1">46</td>
+                                            <td id="moon_phase1">356</td>
                                             <td>
-                                                <label class="label label-info">Vue Js</label>
-                                            </td>
-                                            <td>46</td>
-                                            <td>356</td>
-                                            <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
+                                                <h5 class="m-b-0" id="clouds1">$2850.06</h5>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-success text-white">MP</a></div>
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-success text-white" id="weekday2">EA</a></div>
                                                     <div class="">
-                                                        <h4 class="m-b-0 font-16">Material Pro Admin</h4>
+                                                        <h4 class="m-b-0 font-16" id="date2">Elite Admin</h4>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Single Use</td>
-                                            <td>John Doe</td>
+                                            <td id="sunrise2">Single Use</td>
+                                            <td id="sunset2">John Doe</td>
+                                            <td id="moonrise2">angular</td>
+                                            <td id="moonset2">46</td>
+                                            <td id="moon_phase2">356</td>
                                             <td>
-                                                <label class="label label-success">Bootstrap</label>
-                                            </td>
-                                            <td>46</td>
-                                            <td>356</td>
-                                            <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
+                                                <h5 class="m-b-0" id="clouds2">$2850.06</h5>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-purple text-white">AA</a></div>
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-purple text-white" id="weekday3">EA</a></div>
                                                     <div class="">
-                                                        <h4 class="m-b-0 font-16">Ample Admin</h4>
+                                                        <h4 class="m-b-0 font-16" id="date3">Elite Admin</h4>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Single Use</td>
-                                            <td>John Doe</td>
+                                            <td id="sunrise3">Single Use</td>
+                                            <td id="sunset3">John Doe</td>
+                                            <td id="moonrise3">angular</td>
+                                            <td id="moonset3">46</td>
+                                            <td id="moon_phase3">356</td>
                                             <td>
-                                                <label class="label label-purple">React</label>
+                                                <h5 class="m-b-0" id="clouds3">$2850.06</h5>
                                             </td>
-                                            <td>46</td>
-                                            <td>356</td>
+                                        </tr>
+                                        <tr>
                                             <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white" id="weekday4">EA</a></div>
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16" id="date4">Elite Admin</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td id="sunrise4">Single Use</td>
+                                            <td id="sunset4">John Doe</td>
+                                            <td id="moonrise4">angular</td>
+                                            <td id="moonset4">46</td>
+                                            <td id="moon_phase4">356</td>
+                                            <td>
+                                                <h5 class="m-b-0" id="clouds4">$2850.06</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-orange text-white" id="weekday5">EA</a></div>
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16" id="date5">Elite Admin</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td id="sunrise5">Single Use</td>
+                                            <td id="sunset5">John Doe</td>
+                                            <td id="moonrise5">angular</td>
+                                            <td id="moonset5">46</td>
+                                            <td id="moon_phase5">356</td>
+                                            <td>
+                                                <h5 class="m-b-0" id="clouds5">$2850.06</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-purple text-white" id="weekday6">EA</a></div>
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16" id="date6">Elite Admin</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td id="sunrise6">Single Use</td>
+                                            <td id="sunset6">John Doe</td>
+                                            <td id="moonrise6">angular</td>
+                                            <td id="moonset6">46</td>
+                                            <td id="moon_phase6">356</td>
+                                            <td>
+                                                <h5 class="m-b-0" id="clouds6">$2850.06</h5>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -290,24 +335,29 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Recent Comments</h4>
+                                <div style="text-align:right;"> <a href="comments.do">더 보기</a></div>
                             </div>
                             <div class="comment-widgets scrollable">
                                 <!-- Comment Row -->
+                                <c:forEach var="v" items="${recentData}">
                                 <div class="d-flex flex-row comment-row m-t-0">
-                                    <div class="p-2"><img src="assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                    <div class="p-2"><img src="assets/profileImage/${v.p_user}_profile.jpg" alt="userProfileImage" width="50" class="rounded-circle" onerror="this.src='assets/profileImage/defaultImage.jpg'"></div>
                                     <div class="comment-text w-100">
-                                        <h6 class="font-medium">James Anderson</h6>
-                                        <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
+                                        <h6 class="font-medium">${v.writer}</h6>
+                                        <span class="m-b-15 d-block">${v.content}</span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">April 14, 2016</span> <span class="label label-rounded label-primary">Pending</span> <span class="action-icons">
-                                                    <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                                                    <a href="javascript:void(0)"><i class="ti-check"></i></a>
-                                                    <a href="javascript:void(0)"><i class="ti-heart"></i></a>    
-                                                </span>
+                                            <span class="text-muted float-right">${v.pdate}</span> 
+                                            <span class="label label-success label-rounded">Approved</span>
+                                            <span class="action-icons active">
+                                                <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+                                                <a href="javascript:void(0)"><i class="icon-close"></i></a>
+                                                <a href="javascript:void(0)"><i class="ti-heart text-danger"></i></a>     
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Comment Row -->
+                                </c:forEach>
+                                <!-- Comment Row 
                                 <div class="d-flex flex-row comment-row">
                                     <div class="p-2"><img src="assets/images/users/4.jpg" alt="user" width="50" class="rounded-circle"></div>
                                     <div class="comment-text active w-100">
@@ -315,7 +365,7 @@
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer ">
                                             <span class="text-muted float-right">April 14, 2016</span>
-                                            <span class="label label-success label-rounded">Approved</span>
+                                            <span class="label label-rounded label-primary">Pending</span>
                                             <span class="action-icons active">
                                                     <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
                                                     <a href="javascript:void(0)"><i class="icon-close"></i></a>
@@ -324,7 +374,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Comment Row -->
+                                -->
+                                <!-- Comment Row 
                                 <div class="d-flex flex-row comment-row">
                                     <div class="p-2"><img src="assets/images/users/5.jpg" alt="user" width="50" class="rounded-circle"></div>
                                     <div class="comment-text w-100">
@@ -341,6 +392,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                -->
                             </div>
                         </div>
                     </div>

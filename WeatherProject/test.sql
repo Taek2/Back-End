@@ -1,7 +1,7 @@
 
 create table profile(
 	id varchar(50) primary key,
-	pw varchar(50),
+	pw varchar(1000),
 	name varchar(50),
 	image varchar(300) default 'defaultImage.jpg',
 	email varchar(100),
@@ -25,3 +25,4 @@ delete from profile;
 select * from postInfo;
 
 drop table profile CASCADE CONSTRAINTS;
+ALTER TABLE profile MODIFY pw varchar(1000);

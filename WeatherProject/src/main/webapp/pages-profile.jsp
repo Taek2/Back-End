@@ -150,7 +150,7 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" value="${userInfo.pw}" class="form-control form-control-line" name="pw">
+                                            <input type="password" class="form-control form-control-line" name="pw">
                                         </div>
                                     </div>
                                     <div class="form-group">

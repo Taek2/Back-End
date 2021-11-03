@@ -1,3 +1,4 @@
+// 확인 창 띄우기
 function checkAlert(uri, text) {
 	result = confirm(text);
 	if (result == true) {
@@ -7,7 +8,8 @@ function checkAlert(uri, text) {
 	}
 }     
 
-function msgEdit(index){ // 수정버튼 클릭시 바로 수정가능하게 해주는 기능
+// 댓글 수정 누르면 수정할 수 있게 CSS 변환
+function msgEdit(index){ 
 
 	$('#content'+index).css('display','none'); // 원래 있던 메시지 삭제
 	$('#Option'+index).css('visibility','hidden'); // 원래 있던 수정 삭제 버튼 안보이게
@@ -15,6 +17,7 @@ function msgEdit(index){ // 수정버튼 클릭시 바로 수정가능하게 해
 	$('#uOption'+index).removeClass('dnone'); // 수정, 취소 버튼 띄우기
 }
 
+// 댓글 수정 취소 CSS 변환
 function editCancel(index){
 	$('#content'+index).css('display',''); // 원래 있던 메시지 삭제
 	$('#Option'+index).css('visibility',''); // 원래 있던 수정 삭제 버튼 안보이게
@@ -22,11 +25,12 @@ function editCancel(index){
 	$('#uOption'+index).addClass('dnone'); // 수정, 취소 버튼 띄우기
 }
 
+// 글 수정 AJAX 처리
 function msgEditFinish(index){ 
 	console.log("전달된 메시지: " + $("#uContent"+index).val());
 	var msg = $("#uContent"+index).val().replaceAll("??", "⁇").replaceAll("&","＆").replaceAll("%","％")
 	.replaceAll("+","＋").replaceAll("\\", "￦");
-	var params = "content="+$("#uContent"+index).val()+"&pnum="+$("#postNum"+index).val();
+	var params = "content="+msg+"&pnum="+$("#postNum"+index).val();
  
 	$.ajax({
 		type:"post",
@@ -47,4 +51,26 @@ function msgEditFinish(index){
 			
 		}
 	})
+}
+
+// 글 삭제 AJAX 처리
+function msgDelete(index){ 
+	result = confirm("댓글을 삭제하시겠습니까?");
+	if (result == true) {
+		var params = "pnum="+$("#postNum"+index).val();
+		$.ajax({
+			type:"post",
+			url:"deletePost.do",
+			data:params,
+			dataType:"json",
+			success:function(data){
+				console.log("여기들어옴!");
+				$("#post"+index).remove();
+							
+			}
+		});
+	
+	} else {
+		return;
+	}
 }

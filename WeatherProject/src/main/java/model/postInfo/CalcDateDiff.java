@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
 
+@Service
 public class CalcDateDiff {
 	private String reqDateStr;	
 	

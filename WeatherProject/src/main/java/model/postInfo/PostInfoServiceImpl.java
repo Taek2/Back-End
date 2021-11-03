@@ -36,4 +36,9 @@ public class PostInfoServiceImpl implements PostInfoService{
 		return postInfoDAO.getPost(vo);
 	}
 
+	@Override
+	public List<PostInfoVO> getRecentList() {	
+		return postInfoDAO.getRecentList();
+	}
+
 }

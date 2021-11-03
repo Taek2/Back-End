@@ -8,4 +8,5 @@ public interface PostInfoService {
 	boolean insertPost(PostInfoVO vo);
 	boolean updatePost(PostInfoVO vo);
 	boolean deletePost(PostInfoVO vo);
+	List<PostInfoVO> getRecentList();
 }

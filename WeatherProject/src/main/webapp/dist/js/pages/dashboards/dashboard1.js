@@ -117,6 +117,15 @@ function refresh(){
                for(var i = 0; i < 7; i++){
             	   var date = new Date(weatherData.daily[i].dt * 1000);
             	   //console.log("날짜: " + date.getDate() + "일(" + days[date.getDay()] + ")");
+            	   $("#weekday"+i).text(days[date.getDay()])
+            	   $("#date"+i).text((date.getMonth()+1) + "월 " +date.getDate() + "일");
+            	   var sunrise = new Date(weatherData.daily[i].sunrise * 1000);
+            	   var sunriseHour = sunrise.getHours();
+            	   sunriseHour = sunriseHour >= 10 ? sunriseHour : '0' + sunriseHour;
+            	   var sunriseMinute = sunrise.getMinutes();
+            	   sunriseMinute = sunriseMinute >= 10 ? sunriseMinute : '0' + sunriseMinute;
+            	   $("#sunrise"+i).text(sunriseHour + ":" + sunriseMinute);
+            	   
             	   labels.push(date.getDate() + "일(" + days[date.getDay()] + ")");
             	   maxTemp.push(weatherData.daily[i].temp.max);
             	   minTemp.push(weatherData.daily[i].temp.min);

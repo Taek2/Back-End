@@ -2,6 +2,8 @@ package controller.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,25 +16,29 @@ import org.springframework.web.multipart.MultipartFile;
 
 import model.profile.ProfileService;
 import model.profile.ProfileVO;
+import model.profile.SecureHashAlgorithm;
 
 @Controller
 public class ProfileController {
 
 	@Autowired
 	private ProfileService profileService;
-
+	@Autowired
+	private SecureHashAlgorithm sha;
+	
 	@RequestMapping("/login.do")
-	public String login(HttpServletRequest request, ProfileVO vo, Model model) {
+	public String login(HttpServletRequest request, ProfileVO vo, Model model) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
 		if(vo.getId() == null || vo.getId().equals("")) {
 			throw new IllegalArgumentException("아이디값 공백에러!");
 		}
+		vo.setPw(sha.run(vo.getPw(), "SHA-224"));
 		ProfileVO data = profileService.Login(vo);
 
 		if(data != null) {
 			HttpSession session=request.getSession();
 			session.setAttribute("userInfo", data);
-			return "redirect:index.jsp"; // VR의 설정을 무시하고 redirect
+			return "redirect:index.do"; // VR의 설정을 무시하고 redirect
 		}
 		else {
 			// 설정 무시하고 redirect로 보내주세요 를 표현
@@ -44,11 +50,11 @@ public class ProfileController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:index.jsp";
+		return "redirect:index.do";
 	}
 
 	@RequestMapping("/join.do")
-	public String join(ProfileVO vo) throws IllegalStateException, IOException{
+	public String join(ProfileVO vo) throws IllegalStateException, IOException, NoSuchAlgorithmException{
 		MultipartFile fileUpload=vo.getFileUpload();
 		if(!fileUpload.isEmpty()) {
 			// 파일이 있을 때
@@ -64,9 +70,9 @@ public class ProfileController {
 			// 파일이 없을 경우
 			vo.setImage("assets/profileImage/defaultImage.jpg");
 		}
-
+		vo.setPw(sha.run(vo.getPw(), "SHA-224"));
 		if(profileService.insertProfile(vo)) {
-			return "redirect:index.jsp";
+			return "redirect:index.do";
 		}
 		else {
 			return "redirect:join.jsp";
@@ -75,7 +81,7 @@ public class ProfileController {
 	}
 
 	@RequestMapping("/updateProfile.do")
-	public String updateProfile(ProfileVO vo, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String updateProfile(ProfileVO vo, HttpServletRequest request) throws IllegalStateException, IOException, NoSuchAlgorithmException {
 		MultipartFile fileUpload=vo.getFileUpload();
 		if(!fileUpload.isEmpty()) {
 			// 파일이 있을 때
@@ -88,10 +94,10 @@ public class ProfileController {
 			vo.setImage(path);	
 		}
 		else {
-			// 파일이 없을 경우
+			// 파일이 없을 경우 >> 여기 수정해야함
 			vo.setImage("assets/profileImage/defaultImage.jpg");
 		}
-
+		vo.setPw(sha.run(vo.getPw(), "SHA-224"));
 		profileService.updateProfile(vo);
 		HttpSession session=request.getSession();
 		session.setAttribute("userInfo", vo);
@@ -102,6 +108,6 @@ public class ProfileController {
 	public String deleteProfile(ProfileVO vo, HttpSession session) {
 		profileService.deleteProfile(vo);	
 		session.invalidate();
-		return "redirect:index.jsp";
+		return "redirect:index.do";
 	}
 }

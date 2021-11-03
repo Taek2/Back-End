@@ -20,6 +20,22 @@ public class PostInfoController {
 
 	@Autowired
 	private PostInfoService postInfoService;
+	@Autowired
+	private CalcDateDiff calcDateDiff;
+	
+	@RequestMapping("/index.do")
+	public String showMain(Model model) {
+		ArrayList<PostInfoVO> recentData = new ArrayList<PostInfoVO>();
+		// CalcDateDiff calcDateDiff = new CalcDateDiff();
+		recentData = (ArrayList<PostInfoVO>) postInfoService.getRecentList();
+		
+		for(PostInfoVO v : recentData) {
+			v.setPdate(calcDateDiff.Calc(v.getPdate()));
+		}
+		model.addAttribute("recentData", recentData);
+		
+		return "index.jsp";
+	}
 	
 	@RequestMapping("/insertPost.do")
 	public String insertPost(PostInfoVO vo) {
@@ -33,7 +49,7 @@ public class PostInfoController {
 	@RequestMapping("/comments.do")
 	public String showPostList(Model model) {
 		ArrayList<PostInfoVO> pData = new ArrayList<PostInfoVO>();
-		CalcDateDiff calcDateDiff = new CalcDateDiff();
+		// CalcDateDiff calcDateDiff = new CalcDateDiff();
 		pData = (ArrayList<PostInfoVO>) postInfoService.getPostList();
 		
 		for(PostInfoVO v : pData) {
@@ -46,7 +62,7 @@ public class PostInfoController {
 	
 	@RequestMapping("/updatePost.do")
 	public void updatePost(PostInfoVO vo, HttpServletResponse response) {
-		CalcDateDiff calcDateDiff = new CalcDateDiff();
+		// CalcDateDiff calcDateDiff = new CalcDateDiff();
 		
 		response.setContentType("text/html; charset=UTF-8"); 
 		if(postInfoService.updatePost(vo)) {
@@ -66,6 +82,23 @@ public class PostInfoController {
 		}
 		else {
 			System.out.println("업데이트 오류!");
+		}
+	}
+	
+	@RequestMapping("/deletePost.do")
+	public void deletePost(PostInfoVO vo, HttpServletResponse response) {
+		response.setContentType("text/html; charset=UTF-8");
+		if(postInfoService.deletePost(vo)) {
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			System.out.println("글 삭제 오류!");
 		}
 	}
 	

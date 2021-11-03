@@ -37,6 +37,8 @@ public class PostInfoDAO {
 	private final String updatePostSQL="UPDATE postInfo SET content=?, pdate=sysdate WHERE pnum=?";
 	private final String deletePostSQL="DELETE FROM postInfo WHERE pnum=?";
 	
+	private final String getRecentListSQL="SELECT * FROM (SELECT * FROM postInfo ORDER BY pdate DESC) WHERE ROWNUM <= 4";
+	// "SELECT * FROM (SELECT * FROM post ORDER BY views DESC) WHERE ROWNUM <= 10"
 	public List<PostInfoVO> getPostList() {
 		return jdbcTemplate.query(getPostListSQL, new PostInfoRowMapper());
 	}
@@ -70,5 +72,9 @@ public class PostInfoDAO {
 		} catch(Exception e) {
 			return false;
 		}
+	}
+	
+	public List<PostInfoVO> getRecentList() {
+		return jdbcTemplate.query(getRecentListSQL, new PostInfoRowMapper());
 	}
 }
