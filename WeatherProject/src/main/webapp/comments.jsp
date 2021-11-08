@@ -172,7 +172,37 @@
                           </div>
                         
                     </div>
+                    <div style="margin:0 auto; font: bold 2.0em;">
+						<c:if test="${pageNum == 1}">
+							<a href="#">◁ 이전</a>
+						</c:if>
+						<c:if test="${pageNum!=1}">
+							
+								<a href="comments.do?pageNum=${pageNum-1}">◁ 이전</a>
+							
+						</c:if>
+						 &nbsp;&nbsp; &nbsp;
+						<c:forEach var="i" begin="1" end="${maxPage}">
+							<c:if test="${i==pageNum}">
+								<a class="page" href="comments.do?pageNum=${i}" style="color: red; font-weight:bold;">${i}</a>
+									&nbsp;&nbsp;
+							</c:if>
+							<c:if test="${i!=pageNum}">
+								<a class="page" href="comments.do?pageNum=${i}">${i}</a>
+									&nbsp;&nbsp;
+							</c:if>
+							
+						</c:forEach>
+						&nbsp;
+						<c:if test="${pageNum == maxPage}">
+							<a href="#">▷ 다음</a>
+						</c:if>
+						<c:if test="${pageNum!=maxPage}">
+							<a href="comments.do?pageNum=${pageNum+1}"> 다음 ▷ </a>
+						</c:if>
+						</div>
                 </div>
+                
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->

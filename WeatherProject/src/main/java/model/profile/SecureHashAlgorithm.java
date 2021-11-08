@@ -19,5 +19,5 @@ public class SecureHashAlgorithm {
 		
 		//Byte To Base64 String
 		return Base64.encodeBase64String(md.digest());
-}
+	}
 }

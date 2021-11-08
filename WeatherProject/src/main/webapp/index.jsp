@@ -132,6 +132,8 @@
                             <div class="card-body">
                                 <h4 class="card-title" id="address">내 위치 : <span>정보 없음</span></h4>
                                 <div id="replay"><span class="material-icons" onclick="refresh()">replay</span></div>
+                                <div class="dnone" id="lat"></div>
+                                <div class="dnone" id="lng"></div>
                                 <div class="feed-widget">
                                     <ul class="list-style-none feed-body m-0 p-b-20">
                                         <li class="feed-item">
@@ -154,7 +156,8 @@
                 <!-- ============================================================== -->
                 <!-- Table -->
                 <!-- ============================================================== -->
-                <div class="row">
+                
+             	<div class="row">
                     <!-- column -->
                     <div class="col-12">
                         <div class="card">
@@ -162,15 +165,15 @@
                                 <!-- title -->
                                 <div class="d-md-flex align-items-center">
                                     <div>
-                                        <h4 class="card-title">Top Selling Products</h4>
-                                        <h5 class="card-subtitle">Overview of Top Selling Items</h5>
+                                        <h4 class="card-title">주간 날씨</h4>
+                                        <h5 class="card-subtitle" id="weatherTitle">날씨 세부 정보</h5>
                                     </div>
                                     <div class="ml-auto">
                                         <div class="dl">
-                                            <select class="custom-select">
-                                                <option value="0" selected>해와 달</option>
+                                            <select class="custom-select" id="selectID" onchange="changeItem()">
+                                                <option value="0" selected>날씨</option>
                                                 <option value="1">기온</option>
-                                                <option value="2">날씨</option>
+                                                <option value="2">해와 달</option>
                                             </select>
                                         </div>
                                     </div>
@@ -200,7 +203,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise0">Single Use</td>
+                                            <td id="sunrise0"></td>
                                             <td id="sunset0">John Doe</td>
                                             <td id="moonrise0">angular</td>
                                             <td id="moonset0">46</td>
@@ -218,7 +221,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise1">Single Use</td>
+                                            <td id="sunrise1"></td>
                                             <td id="sunset1">John Doe</td>
                                             <td id="moonrise1">angular</td>
                                             <td id="moonset1">46</td>
@@ -236,7 +239,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise2">Single Use</td>
+                                            <td id="sunrise2"></td>
                                             <td id="sunset2">John Doe</td>
                                             <td id="moonrise2">angular</td>
                                             <td id="moonset2">46</td>
@@ -254,7 +257,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise3">Single Use</td>
+                                            <td id="sunrise3"></td>
                                             <td id="sunset3">John Doe</td>
                                             <td id="moonrise3">angular</td>
                                             <td id="moonset3">46</td>
@@ -272,7 +275,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise4">Single Use</td>
+                                            <td id="sunrise4"></td>
                                             <td id="sunset4">John Doe</td>
                                             <td id="moonrise4">angular</td>
                                             <td id="moonset4">46</td>
@@ -290,7 +293,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise5">Single Use</td>
+                                            <td id="sunrise5"></td>
                                             <td id="sunset5">John Doe</td>
                                             <td id="moonrise5">angular</td>
                                             <td id="moonset5">46</td>
@@ -308,7 +311,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="sunrise6">Single Use</td>
+                                            <td id="sunrise6"></td>
                                             <td id="sunset6">John Doe</td>
                                             <td id="moonrise6">angular</td>
                                             <td id="moonset6">46</td>
@@ -334,7 +337,7 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Recent Comments</h4>
+                                <h4 class="card-title">오늘 뭐 입지?</h4>
                                 <div style="text-align:right;"> <a href="comments.do">더 보기</a></div>
                             </div>
                             <div class="comment-widgets scrollable">
@@ -402,7 +405,7 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">현재 날씨 정보</h4>
+                                <h4 class="card-title">오늘의 날씨</h4>
                                 <div class="d-flex align-items-center flex-row m-t-30">
                                     <div class="display-5 text-info"><img src="" id="currentIcon"> <span id="currentTemp">73<sup>°</sup></span></div>
                                     <div class="m-l-10" id="weatherInfo">
@@ -506,6 +509,7 @@
     <script src="assets/libs/chartist/dist/chartist.min.js"></script>
     <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="dist/js/pages/dashboards/dashboard1.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=037722f4fffc3a8df1d31f8ad843d463&libraries=services"></script>
 </body>
 
 </html>

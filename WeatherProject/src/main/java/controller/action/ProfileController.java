@@ -70,9 +70,10 @@ public class ProfileController {
 			// 파일이 없을 경우
 			vo.setImage("assets/profileImage/defaultImage.jpg");
 		}
+		// 비밀번호 해쉬 암호화
 		vo.setPw(sha.run(vo.getPw(), "SHA-224"));
 		if(profileService.insertProfile(vo)) {
-			return "redirect:index.do";
+			return "redirect:login.jsp";
 		}
 		else {
 			return "redirect:join.jsp";

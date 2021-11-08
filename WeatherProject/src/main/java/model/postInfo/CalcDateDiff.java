@@ -1,5 +1,4 @@
 package model.postInfo;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +17,6 @@ public class CalcDateDiff {
 	}
 
 	public String Calc(String reqDateStr) {
-		System.out.println("reqDateStr = " + reqDateStr);
 		Date curDate = new Date();
     	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	//요청시간을 Date로 parsing 후 time가져오기
@@ -26,17 +24,11 @@ public class CalcDateDiff {
 		try {
 			reqDate = dateFormat.parse(reqDateStr);
 			long reqDateTime = reqDate.getTime();
-			System.out.println("reqDate = " + reqDate);
-			System.out.println("reqDateTime = " + reqDateTime);
 	    	//현재시간을 요청시간의 형태로 format 후 time 가져오기
 	    	curDate = dateFormat.parse(dateFormat.format(curDate));
 	    	long curDateTime = curDate.getTime();
-	    	System.out.println("curDate = " + curDate);
-			System.out.println("curDateTime = " + curDateTime);
 	    	long minute = (curDateTime - reqDateTime) / 60000;
-	    	System.out.println("minute = " + minute);
-	    	String result;
-	    	
+	    	String result;    	
 	    	if(minute < 1) {
 	    		result = "방금 전";
 	    	}
@@ -52,15 +44,11 @@ public class CalcDateDiff {
 	    	else {
 	    		result = "1달 전";
 	    	}
-	    	System.out.println("result = " + result);
 	    	return result;
-	    	
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
 		return null;
 	}
-	
 }
