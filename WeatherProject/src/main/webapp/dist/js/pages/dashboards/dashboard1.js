@@ -14,9 +14,10 @@ function refresh(){
 			var lng=position.coords.longitude;
 			// 현재 위도, 경도 페이지에 저장
 			$("#lat").text(lat);
-			$("#lng").text(lng);
+			
 			// 위도 경도를 인자로 geocodeAPI에서 데이터를 받아옴
-			var geocode = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&language=ko&key=AIzaSyBTQZ3qftgrOjXVpGgS68to76ZrYz8e2xo";
+			var googleKey = "자신의 키를 입력하세요!";
+			var geocode = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&language=ko&key="+googleKey;
 			$.ajax({
 				url: geocode,
 				type: 'POST',
@@ -50,7 +51,8 @@ function refresh(){
 
 function getWeatherInfo(lat, lon){
 	// 위도 : lat 경도 : lon
-	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,alerts&units=metric&appid=35f3b00f4edc36b661fce65fd4c48c85";
+	var appId = "자신의 appId를 입력하세요!";
+	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,alerts&units=metric&appid="+appId;
 	$.ajax({
 		url: weathermap,
 		type: 'POST',
@@ -126,12 +128,23 @@ function getWeatherInfo(lat, lon){
 			var series = [maxTemp, minTemp];
 			//console.log("labels = " + labels);
 			//console.log("series = " + series);
+			
+			//최대값
+			var max = maxTemp.reduce(function (previous, current) { 
+				return previous > current ? previous:current;
+			});
+
+			//최소값
+			var min = minTemp.reduce( function (previous, current) { 
+				return previous > current ? current:previous;
+			});
+
 			var chart = new Chartist.Line('.campaign', {
 				labels: labels,
 				series: series
 			}, {
-				low: 0,
-				high: 20,
+				low: parseInt(min),
+				high: parseInt(max),
 
 				showArea: true,
 				fullWidth: true,
@@ -180,33 +193,20 @@ function getWeatherInfo(lat, lon){
 
 function moonPhaseToStr(moonPhase){
 	var moonPhaseStr = "";
-	if(moonPhase == 0){
-		moonPhaseStr = "new moon";
-	}
-	else if(moonPhase < 0.25){
-		moonPhaseStr = "waxing crescent"
-	}
-	else if(moonPhase == 0.25){
-		moonPhaseStr = "first quarter";
-	}
-	else if(moonPhase < 0.5){
-		moonPhaseStr = "waxing gibbous";
-	}
-	else if(moonPhase == 0.5){
-		moonPhaseStr = "full moon";
-	}
-	else if(moonPhase < 0.75){
-		moonPhaseStr = "waning gibbous";
-	}
-	else if(moonPhase == 0.75){
-		moonPhaseStr = "last quarter";
-	}
-	else{
-		moonPhaseStr = "waning crescent"
-	}
+	
+	if(moonPhase == 0){moonPhaseStr = "new moon";}
+	else if(moonPhase < 0.25){moonPhaseStr = "waxing crescent"}
+	else if(moonPhase == 0.25){moonPhaseStr = "first quarter";}
+	else if(moonPhase < 0.5){moonPhaseStr = "waxing gibbous";}
+	else if(moonPhase == 0.5){moonPhaseStr = "full moon";}
+	else if(moonPhase < 0.75){moonPhaseStr = "waning gibbous";}
+	else if(moonPhase == 0.75){moonPhaseStr = "last quarter";}
+	else{moonPhaseStr = "waning crescent"}
+	
 	return moonPhaseStr;
 
 };
+
 function parseSunMoon(data){
 	var result = "";
 	var Hour = data.getHours();
@@ -240,8 +240,9 @@ function changeItem(){
 function showSunMoon(){
 	var lat = $("#lat").text();
 	var lon = $("#lng").text();
-
-	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,minutely,hourly,alerts&units=metric&appid=35f3b00f4edc36b661fce65fd4c48c85";
+	var appId = "자신의 appId를 입력하세요!";
+	
+	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,minutely,hourly,alerts&units=metric&appid="+appId;
 	$.ajax({
 		url: weathermap,
 		type: 'POST',
@@ -279,7 +280,8 @@ function showTemp(){
 	var lat = $("#lat").text();
 	var lon = $("#lng").text();
 
-	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,minutely,hourly,alerts&units=metric&appid=35f3b00f4edc36b661fce65fd4c48c85";
+	var appId = "자신의 appId를 입력하세요!";
+	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,minutely,hourly,alerts&units=metric&appid="+ appId;
 	$.ajax({
 		url: weathermap,
 		type: 'POST',
@@ -315,7 +317,8 @@ function showTemp(){
 function showWeather(){
 	var lat = $("#lat").text();
 	var lon = $("#lng").text();
-	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,minutely,hourly,alerts&units=metric&appid=35f3b00f4edc36b661fce65fd4c48c85";
+	var appId = "자신의 appId를 입력하세요!";
+	var weathermap = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,minutely,hourly,alerts&units=metric&appid="+appId;
 	$.ajax({
 		url: weathermap,
 		type: 'POST',
@@ -365,7 +368,7 @@ function searchAddress(){
 			var lng = result[0].x;
 			$("#lat").text(lat);
 			$("#lng").text(lng);
-
+ 
 			var coord = new kakao.maps.LatLng(lat, lng);
 			var callback = function(result, status) {
 				if (status === kakao.maps.services.Status.OK) {
