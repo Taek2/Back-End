@@ -367,7 +367,7 @@ function searchAddress(){
 			var lng = result[0].x;
 			$("#lat").text(lat);
 			$("#lng").text(lng);
-
+ 
 			var coord = new kakao.maps.LatLng(lat, lng);
 			var callback = function(result, status) {
 				if (status === kakao.maps.services.Status.OK) {
