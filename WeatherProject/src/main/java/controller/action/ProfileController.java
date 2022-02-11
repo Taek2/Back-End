@@ -62,7 +62,8 @@ public class ProfileController {
 			System.out.println("파일이름: "+fileName);
 			fileName = vo.getId() + "_profile.jpg";
 			System.out.println("바뀐 파일 이름: " + fileName);
-			fileUpload.transferTo(new File("C:\\OH_7670\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\WeatherProject\\assets\\profileImage\\" + fileName));
+			fileUpload.transferTo(new File("C:\\Users\\OHT\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WeatherProject\\assets\\profileImage\\" + fileName));
+			
 			String path = "assets/profileImage/" + fileName;
 			vo.setImage(path);	
 		}
@@ -90,7 +91,7 @@ public class ProfileController {
 			System.out.println("파일이름: "+fileName);
 			fileName = vo.getId() + "_profile.jpg";
 			System.out.println("바뀐 파일 이름: " + fileName);
-			fileUpload.transferTo(new File("C:\\OH_7670\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\WeatherProject\\assets\\profileImage\\" + fileName));
+			fileUpload.transferTo(new File("C:\\Users\\OHT\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WeatherProject\\assets\\profileImage\\" + fileName));
 			String path = "assets/profileImage/" + fileName;
 			vo.setImage(path);	
 		}
