@@ -26,7 +26,7 @@ public class PostInfoServiceImpl implements PostInfoService{
 		return postInfoDAO.updatePost(vo);
 	}
 
-	@Override
+	@Override 
 	public boolean deletePost(PostInfoVO vo) {
 		return postInfoDAO.deletePost(vo);
 	}
