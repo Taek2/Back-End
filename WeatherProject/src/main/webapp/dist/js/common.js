@@ -53,7 +53,7 @@ function msgEditFinish(index){
 	})
 }
 
-// 글 삭제 AJAX 처리
+// 글 삭제 AJAX 처리 --> 다시 원래 로직으로 수정할 예정
 function msgDelete(index){ 
 	result = confirm("댓글을 삭제하시겠습니까?");
 	if (result == true) {

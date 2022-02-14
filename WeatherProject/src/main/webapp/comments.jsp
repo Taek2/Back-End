@@ -118,7 +118,7 @@
                           <div class="guestBook_wrap">
                              <c:forEach var="v" items="${pData}" varStatus="status">
                              <div class="guestBook" id="post${status.index}">
-                               <div class="guest_profile"><img src="assets/profileImage/${v.p_user}_profile.jpg" alt="userProfileImage" /></div>
+                               <div class="guest_profile"><img src="assets/profileImage/${v.p_user}_profile.jpg" alt="userProfileImage" onerror="this.src='assets/profileImage/defaultImage.jpg'" /></div>
                                <div class="guest_contents">  
                                   <input type="hidden" id="postNum${status.index}" value="${v.pnum}">
                                   <h3 class="guest_id">${v.writer}</h3>
